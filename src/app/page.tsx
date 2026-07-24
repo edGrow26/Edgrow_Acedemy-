@@ -7,6 +7,9 @@ import CourseCard from "@/components/courses/CourseCard";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
 import { INITIAL_COURSES, INITIAL_TEACHERS } from "@/lib/data";
 import { dictionary } from "@/lib/i18n";
+import { sanityFetch } from "@/lib/sanity";
+import { explorePageQuery } from "@/lib/queries";
+import { Course, Teacher } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "EdGrow Academy | Tamil Medium IT Courses Sri Lanka",
@@ -29,9 +32,53 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
   const t = dictionary.en;
-  const featuredCourses = INITIAL_COURSES.slice(0, 3);
+
+  // Try fetching page & featured courses data from Sanity CMS with fallback
+  let featuredCourses: Course[] = [];
+  let liveOnlyBadge = t.liveOnlyBadge;
+
+  try {
+    const cmsData = await sanityFetch<{
+      liveOnlyBadge?: string;
+      featuredCourses?: any[];
+    }>({
+      query: explorePageQuery,
+      revalidate: 60,
+    });
+
+    if (cmsData) {
+      if (cmsData.liveOnlyBadge) liveOnlyBadge = cmsData.liveOnlyBadge;
+      if (cmsData.featuredCourses && cmsData.featuredCourses.length > 0) {
+        featuredCourses = cmsData.featuredCourses.map((c) => ({
+          id: c._id,
+          title: c.title,
+          titleTa: c.titleTa,
+          teacherId: c.teacher?._id || "",
+          duration: c.duration,
+          durationCategory: c.durationCategory,
+          fee: c.fee,
+          feeBucket: c.feeBucket,
+          category: c.category || "IT",
+          topic: c.topic,
+          language: c.language || "Tamil",
+          scheduleSlot: c.scheduleSlot,
+          schedule: c.schedule,
+          syllabus: c.syllabus || [],
+          isActive: c.isActive,
+          createdAt: c.createdAt,
+        }));
+      }
+    }
+  } catch (e) {
+    console.warn("Sanity fetch failed or returned empty, falling back to static data", e);
+  }
+
+  // Fallback to static data if Sanity returned no courses
+  if (featuredCourses.length === 0) {
+    featuredCourses = INITIAL_COURSES.slice(0, 3);
+  }
 
   return (
     <div className="min-h-screen flex flex-col justify-between">
@@ -59,7 +106,7 @@ export default function Home() {
               >
                 <span className="flex h-2 w-2 rounded-full bg-[#00BFA5] animate-ping" />
                 <Sparkles className="w-4 h-4 text-[#0066D6]" />
-                <span>{t.liveOnlyBadge}</span>
+                <span>{liveOnlyBadge}</span>
               </div>
 
               {/* Main Headline */}
