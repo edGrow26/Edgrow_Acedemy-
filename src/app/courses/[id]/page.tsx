@@ -5,14 +5,71 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ApplicationForm from "@/components/courses/ApplicationForm";
 import { INITIAL_COURSES, INITIAL_TEACHERS } from "@/lib/data";
+import { sanityFetch } from "@/lib/sanity";
+import { urlForImage } from "@/lib/imageUrl";
+import { courseByIdQuery, courseListQuery } from "@/lib/queries";
+import { Course, Teacher } from "@/lib/types";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
+async function getCourseAndTeacher(id: string): Promise<{ course: Course | null; teacher: Teacher | null }> {
+  try {
+    const cmsCourse = await sanityFetch<any>({
+      query: courseByIdQuery,
+      params: { id },
+      revalidate: 60,
+    });
+
+    if (cmsCourse) {
+      const course: Course = {
+        id: cmsCourse._id,
+        title: cmsCourse.title,
+        titleTa: cmsCourse.titleTa,
+        teacherId: cmsCourse.teacher?._id || "",
+        duration: cmsCourse.duration,
+        durationCategory: cmsCourse.durationCategory,
+        fee: cmsCourse.fee,
+        feeBucket: cmsCourse.feeBucket,
+        category: cmsCourse.category || "IT",
+        topic: cmsCourse.topic,
+        language: cmsCourse.language || "Tamil",
+        scheduleSlot: cmsCourse.scheduleSlot,
+        schedule: cmsCourse.schedule,
+        syllabus: cmsCourse.syllabus || [],
+        isActive: cmsCourse.isActive,
+        createdAt: cmsCourse.createdAt,
+      };
+
+      const teacher: Teacher | null = cmsCourse.teacher
+        ? {
+            id: cmsCourse.teacher._id,
+            name: cmsCourse.teacher.name,
+            photoUrl: urlForImage(cmsCourse.teacher.photoUrl),
+            bio: cmsCourse.teacher.bio,
+            yearsExperience: cmsCourse.teacher.yearsExperience,
+          }
+        : null;
+
+      return { course, teacher };
+    }
+  } catch (e) {
+    console.warn(`Sanity course fetch failed for id: ${id}`, e);
+  }
+
+  // Fallback to static data
+  const staticCourse = INITIAL_COURSES.find((c) => c.id === id);
+  if (!staticCourse) return { course: null, teacher: null };
+
+  const staticTeacher = INITIAL_TEACHERS.find((t) => t.id === staticCourse.teacherId) || null;
+  return { course: staticCourse, teacher: staticTeacher };
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const course = INITIAL_COURSES.find((c) => c.id === id);
+  const { course } = await getCourseAndTeacher(id);
+
   if (!course) return { title: "Course Not Found | EdGrow Academy" };
 
   return {
@@ -28,12 +85,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+export async function generateStaticParams() {
+  try {
+    const cmsCourses = await sanityFetch<any[]>({
+      query: courseListQuery,
+      revalidate: 60,
+    });
+    if (cmsCourses && cmsCourses.length > 0) {
+      return cmsCourses.map((c) => ({ id: c._id }));
+    }
+  } catch (e) {
+    console.warn("Failed to fetch static params from Sanity", e);
+  }
+
+  return INITIAL_COURSES.map((c) => ({ id: c.id }));
+}
+
 export default async function CourseDetailPage({ params }: Props) {
   const { id } = await params;
-  const course = INITIAL_COURSES.find((c) => c.id === id);
-  if (!course) notFound();
+  const { course, teacher } = await getCourseAndTeacher(id);
 
-  const teacher = INITIAL_TEACHERS.find((t) => t.id === course.teacherId);
+  if (!course) notFound();
 
   const jsonLd = {
     "@context": "https://schema.org",
