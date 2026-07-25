@@ -87,3 +87,29 @@ export const teachersQuery = `*[_type == "teacher"] {
   bio,
   yearsExperience
 }`;
+
+export const teacherByIdQuery = `*[_type == "teacher" && _id == $id][0] {
+  _id,
+  name,
+  photoUrl,
+  bio,
+  yearsExperience
+}`;
+
+export const coursesByTeacherQuery = `*[_type == "course" && teacher._ref == $teacherId && isActive == true] | order(createdAt desc) {
+  _id,
+  title,
+  titleTa,
+  duration,
+  durationCategory,
+  fee,
+  feeBucket,
+  category,
+  topic,
+  language,
+  scheduleSlot,
+  schedule,
+  syllabus,
+  isActive,
+  createdAt
+}`;

@@ -73,6 +73,14 @@ export default function Navbar() {
             {t.exploreCourses}
           </Link>
           <Link
+            href="/instructors"
+            className="text-sm font-semibold hover:text-[#0066D6] transition-colors flex items-center gap-1.5"
+            style={{ color: "var(--text-body)" }}
+          >
+            <GraduationCap className="w-4 h-4 text-[#0066D6]" />
+            Our Instructors
+          </Link>
+          <Link
             href="/#trust"
             className="text-sm font-semibold hover:text-[#0066D6] transition-colors flex items-center gap-1.5"
             style={{ color: "var(--text-body)" }}
@@ -131,6 +139,14 @@ export default function Navbar() {
             style={{ color: "var(--text-primary)" }}
           >
             {t.exploreCourses}
+          </Link>
+          <Link
+            href="/instructors"
+            onClick={() => setMobileOpen(false)}
+            className="block text-base font-semibold py-2 hover:text-[#0066D6]"
+            style={{ color: "var(--text-primary)" }}
+          >
+            Our Instructors
           </Link>
           <Link
             href="/#trust"

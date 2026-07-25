@@ -9,7 +9,6 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-06B6D1?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![Sanity CMS](https://img.shields.io/badge/Sanity%20CMS-F03E39?logo=sanity&logoColor=white)](https://www.sanity.io/)
-[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-000000?logo=vercel&logoColor=white)](https://vercel.com/)
 
 </div>
 
@@ -44,10 +43,7 @@ Students can explore IT courses, filter by topic, fee range, duration, and sched
 | **Forms** | [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/) |
 | **CMS** | [Sanity Studio v6](https://www.sanity.io/) |
 | **Data Fetching** | `@sanity/client` with GROQ queries |
-| **Fonts** | [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans) (Google Fonts) |
-| **Deployment** | [Vercel](https://vercel.com/) |
-| **Linting** | ESLint + `eslint-config-next` |
-
+| **Fonts** | [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans) 
 ---
 
 ## 📁 Project Structure

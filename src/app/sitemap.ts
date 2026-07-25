@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { INITIAL_COURSES } from "@/lib/data";
+import { INITIAL_COURSES, INITIAL_TEACHERS } from "@/lib/data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://edgrow.lk";
@@ -17,6 +17,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.9,
     },
+    {
+      url: `${baseUrl}/instructors`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
   ];
 
   const courseRoutes: MetadataRoute.Sitemap = INITIAL_COURSES.map((course) => ({
@@ -26,5 +32,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...courseRoutes];
+  const instructorRoutes: MetadataRoute.Sitemap = INITIAL_TEACHERS.map((teacher) => ({
+    url: `${baseUrl}/instructors/${teacher.id}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...courseRoutes, ...instructorRoutes];
 }
