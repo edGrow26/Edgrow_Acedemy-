@@ -55,6 +55,16 @@ export default function Footer() {
               <li><Link href="/courses" className="hover:text-[#0066D6]">Cloud DevOps & Docker</Link></li>
               <li><Link href="/courses" className="hover:text-[#0066D6]">Programming Fundamentals</Link></li>
             </ul>
+
+            {/* Instructors */}
+            <div className="space-y-3">
+              <h4 className="text-xs font-bold uppercase tracking-wider" style={{ color: "var(--text-primary)" }}>
+                Our Instructors
+              </h4>
+              <ul className="space-y-2 text-xs" style={{ color: "var(--text-secondary)" }}>
+                <li><Link href="/instructors" className="hover:text-[#0066D6]">Meet Our Instructors</Link></li>
+              </ul>
+            </div>
           </div>
 
           {/* Guidelines & Policy */}
