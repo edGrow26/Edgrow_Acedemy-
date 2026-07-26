@@ -3,13 +3,8 @@ import Link from "next/link";
 import { Sparkles, ArrowRight, ShieldCheck, CheckCircle2, AlertCircle, Video, Users, Award, BookOpen } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import CourseCard from "@/components/courses/CourseCard";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
-import { INITIAL_COURSES, INITIAL_TEACHERS } from "@/lib/data";
 import { dictionary } from "@/lib/i18n";
-import { sanityFetch } from "@/lib/sanity";
-import { explorePageQuery } from "@/lib/queries";
-import { Course, Teacher } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "EdGrow Academy | Tamil Medium IT Courses Sri Lanka",
@@ -34,51 +29,6 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const t = dictionary.en;
-
-  // Try fetching page & featured courses data from Sanity CMS with fallback
-  let featuredCourses: Course[] = [];
-  let liveOnlyBadge = t.liveOnlyBadge;
-
-  try {
-    const cmsData = await sanityFetch<{
-      liveOnlyBadge?: string;
-      featuredCourses?: any[];
-    }>({
-      query: explorePageQuery,
-      revalidate: 60,
-    });
-
-    if (cmsData) {
-      if (cmsData.liveOnlyBadge) liveOnlyBadge = cmsData.liveOnlyBadge;
-      if (cmsData.featuredCourses && cmsData.featuredCourses.length > 0) {
-        featuredCourses = cmsData.featuredCourses.map((c) => ({
-          id: c._id,
-          title: c.title,
-          titleTa: c.titleTa,
-          teacherId: c.teacher?._id || "",
-          duration: c.duration,
-          durationCategory: c.durationCategory,
-          fee: c.fee,
-          feeBucket: c.feeBucket,
-          category: c.category || "IT",
-          topic: c.topic,
-          language: c.language || "Tamil",
-          scheduleSlot: c.scheduleSlot,
-          schedule: c.schedule,
-          syllabus: c.syllabus || [],
-          isActive: c.isActive,
-          createdAt: c.createdAt,
-        }));
-      }
-    }
-  } catch (e) {
-    console.warn("Sanity fetch failed or returned empty, falling back to static data", e);
-  }
-
-  // Fallback to static data if Sanity returned no courses
-  if (featuredCourses.length === 0) {
-    featuredCourses = INITIAL_COURSES.slice(0, 3);
-  }
 
   return (
     <div className="min-h-screen flex flex-col justify-between">
@@ -106,7 +56,7 @@ export default async function Home() {
               >
                 <span className="flex h-2 w-2 rounded-full bg-[#00BFA5] animate-ping" />
                 <Sparkles className="w-4 h-4 text-[#0066D6]" />
-                <span>{liveOnlyBadge}</span>
+                <span>{t.liveOnlyBadge}</span>
               </div>
 
               {/* Main Headline */}
@@ -162,40 +112,6 @@ export default async function Home() {
               </div>
 
             </div>
-          </div>
-        </section>
-
-        {/* FEATURED COURSES SECTION */}
-        <section className="py-20 border-y relative" style={{ backgroundColor: "var(--surface)", borderColor: "var(--border)" }}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-            
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-              <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-[#0066D6] block mb-1">
-                  Featured Programs
-                </span>
-                <h2 className="text-2xl sm:text-4xl font-extrabold" style={{ color: "var(--text-primary)" }}>
-                  Popular <span className="text-gradient-mint">IT Learning Tracks</span>
-                </h2>
-              </div>
-
-              <Link
-                href="/courses"
-                className="inline-flex items-center gap-2 text-sm font-bold text-[#0066D6] hover:underline"
-              >
-                <span>View All Courses</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            {/* Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {featuredCourses.map((course, idx) => {
-                const teacher = INITIAL_TEACHERS.find((t) => t.id === course.teacherId);
-                return <CourseCard key={course.id} course={course} teacher={teacher} index={idx} />;
-              })}
-            </div>
-
           </div>
         </section>
 
