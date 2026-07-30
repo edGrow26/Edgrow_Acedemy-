@@ -56,12 +56,12 @@ export default defineConfig({
 
             S.listItem()
               .title("📋 Applications")
-              .schemaType("application")
+              .schemaType("courseApplication")
               .child(
-                S.documentTypeList("application")
+                S.documentTypeList("courseApplication")
                   .title("Course Applications")
                   .defaultOrdering([
-                    { field: "submittedAt", direction: "desc" },
+                    { field: "appliedAt", direction: "desc" },
                   ])
               ),
           ]),
