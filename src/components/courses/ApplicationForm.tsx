@@ -4,10 +4,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, PhoneCall, AlertCircle, ArrowRight, ShieldCheck } from "lucide-react";
+import { CheckCircle2, PhoneCall, AlertCircle, ArrowRight, ShieldCheck, XCircle } from "lucide-react";
 import { applicationSchema, ApplicationFormData } from "@/lib/validation";
 import { Course } from "@/lib/types";
-import { getStoredApplications, saveApplications } from "@/lib/data";
 import { dictionary } from "@/lib/i18n";
 
 interface ApplicationFormProps {
@@ -18,6 +17,7 @@ interface ApplicationFormProps {
 export default function ApplicationForm({ course, allCourses = [] }: ApplicationFormProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submittedData, setSubmittedData] = useState<ApplicationFormData | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const t = dictionary.en;
 
   const {
@@ -36,25 +36,34 @@ export default function ApplicationForm({ course, allCourses = [] }: Application
   });
 
   const onSubmit = async (data: ApplicationFormData) => {
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    setSubmitError(null);
+    try {
+      const response = await fetch("/api/course-applications", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          selectedCourseId: data.courseId,
+          fullName: data.fullName,
+          phoneNumber: data.phone,
+          email: data.email || "",
+        }),
+      });
 
-    const existing = getStoredApplications();
-    const newApp = {
-      id: `app-${Date.now()}`,
-      fullName: data.fullName,
-      phone: data.phone,
-      email: data.email || "",
-      courseId: data.courseId,
-      status: "New" as const,
-      adminNotes: "Submitted online application via course portal.",
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
-    saveApplications([newApp, ...existing]);
+      if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.error || "Failed to submit application");
+      }
 
-    setSubmittedData(data);
-    setIsSubmitted(true);
-    reset();
+      // Only mark as submitted after Sanity confirms success
+      setSubmittedData(data);
+      setIsSubmitted(true);
+      reset();
+    } catch (error: any) {
+      console.error("Failed to submit to Sanity:", error);
+      setSubmitError(
+        error?.message || "Something went wrong. Please try again or contact us directly."
+      );
+    }
   };
 
   return (
@@ -261,6 +270,14 @@ export default function ApplicationForm({ course, allCourses = [] }: Application
                 Upon submission, our admin team will reach out via WhatsApp to verify your registration and send payment bank details.
               </p>
             </div>
+
+            {/* Submit Error Message */}
+            {submitError && (
+              <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 flex items-start gap-2 text-xs">
+                <XCircle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+                <p className="text-red-400 font-medium">{submitError}</p>
+              </div>
+            )}
 
             {/* Submit Button */}
             <button
