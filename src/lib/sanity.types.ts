@@ -32,6 +32,9 @@ export interface SanityCourse {
   durationCategory: "under-1-month" | "1-3-months" | "3-plus-months";
   fee: number;
   feeBucket: "budget" | "mid" | "premium";
+  couponCode?: string;
+  discountType?: "percent" | "fixed";
+  discountValue?: number;
   category: string;
   topic: string;
   language: string;

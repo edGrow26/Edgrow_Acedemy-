@@ -19,6 +19,7 @@ export const applicationSchema = z.object({
     .email({ message: "Please enter a valid email address" })
     .optional()
     .or(z.literal("")),
+  couponCode: z.string().optional().or(z.literal("")),
   courseId: z.string().min(1, { message: "Please select a course" }),
 });
 

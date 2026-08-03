@@ -1,28 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, PhoneCall, AlertCircle, ArrowRight, ShieldCheck, XCircle } from "lucide-react";
+import { CheckCircle2, PhoneCall, AlertCircle, ArrowRight, ShieldCheck } from "lucide-react";
 import { applicationSchema, ApplicationFormData } from "@/lib/validation";
 import { Course } from "@/lib/types";
+import { getStoredApplications, saveApplications } from "@/lib/data";
 import { dictionary } from "@/lib/i18n";
+import { getCoursePricingInfo } from "@/lib/coursePricing";
 
 interface ApplicationFormProps {
   course?: Course;
   allCourses?: Course[];
 }
 
-export default function ApplicationForm({ course, allCourses = [] }: ApplicationFormProps) {
+export default function ApplicationForm({ course, allCourses = [] as Course[] }: ApplicationFormProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submittedData, setSubmittedData] = useState<ApplicationFormData | null>(null);
-  const [submitError, setSubmitError] = useState<string | null>(null);
   const t = dictionary.en;
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
     reset,
   } = useForm<ApplicationFormData>({
@@ -35,35 +37,35 @@ export default function ApplicationForm({ course, allCourses = [] }: Application
     },
   });
 
+  const currentCourseId = watch("courseId");
+  const selectedCourse: Course | undefined = useMemo(() => {
+    if (course && course.id === currentCourseId) return course;
+    return allCourses.find((item) => item.id === currentCourseId) ?? course ?? allCourses[0];
+  }, [course, allCourses, currentCourseId]);
+
+  const selectedPricing = selectedCourse ? getCoursePricingInfo(selectedCourse) : null;
+
   const onSubmit = async (data: ApplicationFormData) => {
-    setSubmitError(null);
-    try {
-      const response = await fetch("/api/course-applications", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          selectedCourseId: data.courseId,
-          fullName: data.fullName,
-          phoneNumber: data.phone,
-          email: data.email || "",
-        }),
-      });
+    await new Promise((resolve) => setTimeout(resolve, 800));
 
-      if (!response.ok) {
-        const err = await response.json();
-        throw new Error(err.error || "Failed to submit application");
-      }
+    const existing = getStoredApplications();
+    const newApp = {
+      id: `app-${Date.now()}`,
+      fullName: data.fullName,
+      phone: data.phone,
+      email: data.email || "",
+      couponCode: data.couponCode || "",
+      courseId: data.courseId,
+      status: "New" as const,
+      adminNotes: "Submitted online application via course portal.",
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    saveApplications([newApp, ...existing]);
 
-      // Only mark as submitted after Sanity confirms success
-      setSubmittedData(data);
-      setIsSubmitted(true);
-      reset();
-    } catch (error: any) {
-      console.error("Failed to submit to Sanity:", error);
-      setSubmitError(
-        error?.message || "Something went wrong. Please try again or contact us directly."
-      );
-    }
+    setSubmittedData(data);
+    setIsSubmitted(true);
+    reset();
   };
 
   return (
@@ -155,7 +157,25 @@ export default function ApplicationForm({ course, allCourses = [] }: Application
                   }}
                 >
                   <span>{course.title}</span>
-                  <span className="text-xs text-[#0066D6] font-bold">Rs. {course.fee.toLocaleString()}</span>
+                  <div className="text-right">
+                    {selectedPricing?.hasDiscount ? (
+                      <div className="space-y-1 text-right">
+                        <div className="text-[11px] text-red-500 line-through">
+                          Rs. {selectedPricing.baseFee.toLocaleString()}
+                        </div>
+                        <div className="text-xs text-[#0066D6] font-bold">
+                          Rs. {selectedPricing.discountedFee.toLocaleString()}
+                        </div>
+                        <div className="text-[11px] text-[#00BFA5] font-semibold">
+                          Coupon Code: {selectedPricing.couponCode} • Discount: {selectedPricing.discountLabel}
+                        </div>
+                      </div>
+                    ) : (
+                      <span className="text-xs text-[#0066D6] font-bold">
+                        Rs. {course.fee.toLocaleString()}
+                      </span>
+                    )}
+                  </div>
                   <input type="hidden" {...register("courseId")} value={course.id} />
                 </div>
               ) : (
@@ -168,11 +188,14 @@ export default function ApplicationForm({ course, allCourses = [] }: Application
                     color: "var(--text-primary)",
                   }}
                 >
-                  {allCourses.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.title} - Rs. {c.fee.toLocaleString()}
-                    </option>
-                  ))}
+                  {allCourses.map((c) => {
+                    const pricing = getCoursePricingInfo(c);
+                    return (
+                      <option key={c.id} value={c.id}>
+                        {c.title} - {pricing.hasDiscount ? `Rs. ${pricing.discountedFee.toLocaleString()} (coupon: ${pricing.couponCode})` : `Rs. ${pricing.baseFee.toLocaleString()}`}
+                      </option>
+                    );
+                  })}
                 </select>
               )}
               {errors.courseId && (
@@ -260,6 +283,24 @@ export default function ApplicationForm({ course, allCourses = [] }: Application
               )}
             </div>
 
+            {/* Coupon Code (Optional) */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold uppercase tracking-wider block" style={{ color: "var(--text-primary)" }}>
+                Coupon Code
+              </label>
+              <input
+                type="text"
+                {...register("couponCode")}
+                placeholder="Enter coupon code if you have one"
+                className="w-full p-3 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-[#0066D6]"
+                style={{
+                  backgroundColor: "var(--surface)",
+                  borderColor: "var(--border)",
+                  color: "var(--text-primary)",
+                }}
+              />
+            </div>
+
             {/* Policy Checkbox Notice */}
             <div className="p-3 rounded-xl bg-[#0066D6]/10 border border-[#0066D6]/20 text-xs space-y-1">
               <div className="flex items-center gap-1.5 font-bold text-[#0066D6]">
@@ -270,14 +311,6 @@ export default function ApplicationForm({ course, allCourses = [] }: Application
                 Upon submission, our admin team will reach out via WhatsApp to verify your registration and send payment bank details.
               </p>
             </div>
-
-            {/* Submit Error Message */}
-            {submitError && (
-              <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 flex items-start gap-2 text-xs">
-                <XCircle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
-                <p className="text-red-400 font-medium">{submitError}</p>
-              </div>
-            )}
 
             {/* Submit Button */}
             <button

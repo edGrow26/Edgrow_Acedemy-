@@ -4,6 +4,9 @@
   "description": "This directory contains the Sanity schemas for the **EdGrow Academy** content management system.",
   "main": "index.js",
   "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
