@@ -1,0 +1,23 @@
+{
+  "name": "sanity",
+  "version": "1.0.0",
+  "description": "This directory contains the Sanity schemas for the **EdGrow Academy** content management system.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@sanity/vision": "^6.6.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "sanity": "^6.6.0",
+    "styled-components": "^6.4.4"
+  }
+}
