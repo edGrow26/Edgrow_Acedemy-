@@ -77,6 +77,32 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "couponCode",
+      title: "Coupon Code",
+      type: "string",
+      description: "Optional coupon code shown on the course fees section (e.g. WELCOME10).",
+    }),
+    defineField({
+      name: "discountType",
+      title: "Discount Type",
+      type: "string",
+      options: {
+        list: [
+          { title: "Percentage", value: "percent" },
+          { title: "Fixed Amount", value: "fixed" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "percent",
+    }),
+    defineField({
+      name: "discountValue",
+      title: "Discount Value",
+      type: "number",
+      description: "Enter a percentage (e.g. 10) or a fixed amount (e.g. 2000).",
+      validation: (Rule) => Rule.min(0, "Discount must be 0 or positive"),
+    }),
+    defineField({
       name: "category",
       title: "Category",
       type: "string",

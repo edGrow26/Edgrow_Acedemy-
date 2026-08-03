@@ -9,6 +9,7 @@ import { sanityFetch } from "@/lib/sanity";
 import { urlForImage } from "@/lib/imageUrl";
 import { courseByIdQuery, courseListQuery } from "@/lib/queries";
 import { Course, Teacher } from "@/lib/types";
+import { getCoursePricingInfo } from "@/lib/coursePricing";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -32,6 +33,9 @@ async function getCourseAndTeacher(id: string): Promise<{ course: Course | null;
         durationCategory: cmsCourse.durationCategory,
         fee: cmsCourse.fee,
         feeBucket: cmsCourse.feeBucket,
+        couponCode: cmsCourse.couponCode,
+        discountType: cmsCourse.discountType,
+        discountValue: cmsCourse.discountValue,
         category: cmsCourse.category || "IT",
         topic: cmsCourse.topic,
         language: cmsCourse.language || "Tamil",
@@ -106,6 +110,8 @@ export default async function CourseDetailPage({ params }: Props) {
   const { course, teacher } = await getCourseAndTeacher(id);
 
   if (!course) notFound();
+
+  const pricing = getCoursePricingInfo(course);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -207,9 +213,20 @@ export default async function CourseDetailPage({ params }: Props) {
                   <span className="text-[10px] uppercase font-bold tracking-wider block" style={{ color: "var(--text-muted)" }}>
                     One-Time Fee
                   </span>
-                  <span className="text-2xl font-extrabold text-[#0066D6]">
-                    Rs. {course.fee.toLocaleString()}
-                  </span>
+                  {pricing.hasDiscount ? (
+                    <div className="space-y-1">
+                      <div className="text-sm text-red-500 line-through">
+                        Rs. {pricing.baseFee.toLocaleString()}
+                      </div>
+                      <div className="text-2xl font-extrabold text-[#0066D6]">
+                        Rs. {pricing.discountedFee.toLocaleString()}
+                      </div>
+                    </div>
+                  ) : (
+                    <span className="text-2xl font-extrabold text-[#0066D6]">
+                      Rs. {pricing.baseFee.toLocaleString()}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>

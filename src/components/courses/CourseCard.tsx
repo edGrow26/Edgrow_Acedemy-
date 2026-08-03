@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Clock, Calendar, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Course, Teacher } from "@/lib/types";
+import { getCoursePricingInfo } from "@/lib/coursePricing";
 
 interface CourseCardProps {
   course: Course;
@@ -12,6 +13,8 @@ interface CourseCardProps {
 }
 
 export default function CourseCard({ course, teacher, index = 0 }: CourseCardProps) {
+  const pricing = getCoursePricingInfo(course);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -90,9 +93,25 @@ export default function CourseCard({ course, teacher, index = 0 }: CourseCardPro
           <span className="text-[10px] uppercase font-bold tracking-wider block" style={{ color: "var(--text-muted)" }}>
             One-Time Fee
           </span>
-          <span className="text-xl sm:text-2xl font-extrabold text-[#0066D6]">
-            Rs. {course.fee.toLocaleString()}
-          </span>
+          <div>
+            {pricing.hasDiscount ? (
+              <div className="space-y-1">
+                <div className="text-xs font-semibold text-red-500 line-through">
+                  Rs. {pricing.baseFee.toLocaleString()}
+                </div>
+                <div className="text-xl sm:text-2xl font-extrabold text-[#0066D6]">
+                  Rs. {pricing.discountedFee.toLocaleString()}
+                </div>
+                <div className="text-[11px] font-semibold text-[#00BFA5]">
+                  Coupon Code: {pricing.couponCode} • Discount: {pricing.discountLabel}
+                </div>
+              </div>
+            ) : (
+              <span className="text-xl sm:text-2xl font-extrabold text-[#0066D6]">
+                Rs. {pricing.baseFee.toLocaleString()}
+              </span>
+            )}
+          </div>
         </div>
 
         <Link

@@ -44,7 +44,7 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "status", 
+      name: "status",
       title: "Application Status",
       type: "string",
       options: {

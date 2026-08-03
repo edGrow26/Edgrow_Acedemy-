@@ -21,6 +21,9 @@ export interface Course {
   durationCategory: DurationCategory;
   fee: number;
   feeBucket: FeeBucket;
+  couponCode?: string;
+  discountType?: "percent" | "fixed";
+  discountValue?: number;
   category: string; // Default: "IT"
   topic: string; // e.g., "Web Development", "Programming Fundamentals", "Data/AI", "Networking"
   language: string; // Default: "Tamil"
@@ -36,6 +39,7 @@ export interface Application {
   fullName: string;
   phone: string;
   email?: string;
+  couponCode?: string;
   courseId: string;
   status: ApplicationStatus;
   adminNotes?: string;
