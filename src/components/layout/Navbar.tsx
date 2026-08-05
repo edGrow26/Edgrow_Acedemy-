@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { GraduationCap, BookOpen, Menu, X, ArrowRight, Sparkles } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "../ui/ThemeToggle";
 import { dictionary } from "@/lib/i18n";
 
@@ -124,51 +125,57 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Drawer */}
-      {mobileOpen && (
-        <div
-          className="md:hidden border-b px-4 pt-4 pb-6 space-y-4 shadow-2xl backdrop-blur-2xl"
-          style={{
-            backgroundColor: "var(--surface)",
-            borderColor: "var(--border)",
-          }}
-        >
-          <Link
-            href="/courses"
-            onClick={() => setMobileOpen(false)}
-            className="block text-base font-semibold py-2 hover:text-[#0066D6]"
-            style={{ color: "var(--text-primary)" }}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden border-b px-4 pt-4 pb-6 space-y-4 shadow-2xl backdrop-blur-2xl"
+            style={{
+              backgroundColor: "var(--surface)",
+              borderColor: "var(--border)",
+            }}
           >
-            {t.exploreCourses}
-          </Link>
-          <Link
-            href="/instructors"
-            onClick={() => setMobileOpen(false)}
-            className="block text-base font-semibold py-2 hover:text-[#0066D6]"
-            style={{ color: "var(--text-primary)" }}
-          >
-            Our Instructors
-          </Link>
-          <Link
-            href="/#trust"
-            onClick={() => setMobileOpen(false)}
-            className="block text-base font-semibold py-2 hover:text-[#0066D6]"
-            style={{ color: "var(--text-primary)" }}
-          >
-            Features
-          </Link>
-          <div className="pt-2">
             <Link
               href="/courses"
               onClick={() => setMobileOpen(false)}
-              className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold text-white shadow-lg"
-              style={{ background: "linear-gradient(135deg, var(--primary-blue), var(--accent-teal))" }}
+              className="block text-base font-semibold py-2 hover:text-[#0066D6]"
+              style={{ color: "var(--text-primary)" }}
             >
-              {t.applyNow}
-              <ArrowRight className="w-4 h-4" />
+              {t.exploreCourses}
             </Link>
-          </div>
-        </div>
-      )}
+            <Link
+              href="/instructors"
+              onClick={() => setMobileOpen(false)}
+              className="block text-base font-semibold py-2 hover:text-[#0066D6]"
+              style={{ color: "var(--text-primary)" }}
+            >
+              Our Instructors
+            </Link>
+            <Link
+              href="/#trust"
+              onClick={() => setMobileOpen(false)}
+              className="block text-base font-semibold py-2 hover:text-[#0066D6]"
+              style={{ color: "var(--text-primary)" }}
+            >
+              Features
+            </Link>
+            <div className="pt-2">
+              <Link
+                href="/courses"
+                onClick={() => setMobileOpen(false)}
+                className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold text-white shadow-lg"
+                style={{ background: "linear-gradient(135deg, var(--primary-blue), var(--accent-teal))" }}
+              >
+                {t.applyNow}
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
