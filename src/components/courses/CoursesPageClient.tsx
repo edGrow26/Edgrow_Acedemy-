@@ -61,21 +61,24 @@ export default function CoursesPageClient({
   }, [courses, filters]);
 
   return (
-    <div className="min-h-screen flex flex-col justify-between">
+    <div className="min-h-screen flex flex-col justify-between bg-[#1c2e40]" style={{
+      backgroundImage: `linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`,
+      backgroundSize: '40px 40px'
+    }}>
       <Navbar />
 
-      <main className="flex-1 pt-28 pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <main className="flex-1 pt-32 pb-20 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 relative z-10">
           
           {/* Page Header */}
           <div className="text-center max-w-3xl mx-auto space-y-3">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#0066D6] block">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#00BFA5] block">
               Course Catalog
             </span>
-            <h1 className="text-3xl sm:text-5xl font-extrabold" style={{ color: "var(--text-primary)" }}>
-              Explore Our <span className="text-gradient-blue">IT Courses</span>
+            <h1 className="text-3xl sm:text-5xl font-extrabold text-white">
+              Explore Our <span className="text-gradient-mint">IT Courses</span>
             </h1>
-            <p className="text-sm sm:text-base" style={{ color: "var(--text-body)" }}>
+            <p className="text-sm sm:text-base text-gray-300">
               100% Live sessions taught in Tamil. Select your preferred track and class schedule.
             </p>
           </div>
@@ -84,7 +87,7 @@ export default function CoursesPageClient({
           <CourseFilters filters={filters} onChange={setFilters} topics={topics} />
 
           {/* Results Metadata */}
-          <div className="flex items-center justify-between text-xs font-semibold" style={{ color: "var(--text-secondary)" }}>
+          <div className="flex items-center justify-between text-xs font-semibold text-gray-400">
             <p>
               Showing <strong>{filteredCourses.length}</strong> matching courses
             </p>
@@ -100,13 +103,12 @@ export default function CoursesPageClient({
             </div>
           ) : (
             <div
-              className="text-center py-16 p-8 rounded-2xl border space-y-4"
-              style={{ backgroundColor: "var(--glass-bg)", borderColor: "var(--border)" }}
+              className="text-center py-16 p-8 rounded-2xl border space-y-4 bg-[#0f172a]/50 border-white/10"
             >
-              <p className="text-lg font-bold" style={{ color: "var(--text-primary)" }}>
+              <p className="text-lg font-bold text-white">
                 No courses match your filter criteria.
               </p>
-              <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
+              <p className="text-xs text-gray-400">
                 Try adjusting your search query or resetting your filters.
               </p>
               <button
@@ -120,7 +122,7 @@ export default function CoursesPageClient({
                     searchQuery: "",
                   })
                 }
-                className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-[#0066D6]"
+                className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-[#154f59]"
               >
                 Reset Filters
               </button>
