@@ -15,7 +15,7 @@ export default function Footer() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b" style={{ borderColor: "var(--border)" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b" style={{ borderColor: "var(--border)" }}>
           
           {/* Brand Info */}
           <div className="space-y-4">
@@ -57,7 +57,9 @@ export default function Footer() {
             </ul>
 
             {/* Instructors */}
-            <div className="space-y-3">
+           
+          </div>
+           <div className="space-y-3">
               <h4 className="text-xs font-bold uppercase tracking-wider" style={{ color: "var(--text-primary)" }}>
                 Our Instructors
               </h4>
@@ -65,7 +67,6 @@ export default function Footer() {
                 <li><Link href="/instructors" className="hover:text-[#0066D6]">Meet Our Instructors</Link></li>
               </ul>
             </div>
-          </div>
 
           {/* Guidelines & Policy */}
           <div className="space-y-3">
