@@ -77,7 +77,7 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
         borderColor: "var(--border)",
       }}
     >
-      <div className="absolute top-0 right-0 w-64 h-64 bg-[#0066D6]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-0 w-64 h-64 bg-[#154f59]/10 rounded-full blur-3xl pointer-events-none" />
 
       <AnimatePresence mode="wait">
         {isSubmitted ? (
@@ -119,7 +119,7 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
             <button
               type="button"
               onClick={() => setIsSubmitted(false)}
-              className="inline-flex items-center gap-2 text-xs font-bold text-[#0066D6] hover:underline"
+              className="inline-flex items-center gap-2 text-xs font-bold text-[#154f59] hover:underline"
             >
               Submit Another Application
             </button>
@@ -163,7 +163,7 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
                         <div className="text-[11px] text-red-500 line-through">
                           Rs. {selectedPricing.baseFee.toLocaleString()}
                         </div>
-                        <div className="text-xs text-[#0066D6] font-bold">
+                        <div className="text-xs text-[#154f59] font-bold">
                           Rs. {selectedPricing.discountedFee.toLocaleString()}
                         </div>
                         <div className="text-[11px] text-[#00BFA5] font-semibold">
@@ -171,7 +171,7 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
                         </div>
                       </div>
                     ) : (
-                      <span className="text-xs text-[#0066D6] font-bold">
+                      <span className="text-xs text-[#154f59] font-bold">
                         Rs. {course.fee.toLocaleString()}
                       </span>
                     )}
@@ -181,7 +181,7 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
               ) : (
                 <select
                   {...register("courseId")}
-                  className="w-full p-3 rounded-xl border text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#0066D6]"
+                  className="w-full p-3 rounded-xl border text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#154f59]"
                   style={{
                     backgroundColor: "var(--surface)",
                     borderColor: "var(--border)",
@@ -213,7 +213,7 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
                 {...register("fullName")}
                 placeholder="e.g. Kajan Tharmalingam"
                 className={`w-full p-3 rounded-xl border text-sm focus:outline-none focus:ring-2 transition-all ${
-                  errors.fullName ? "border-red-500 ring-1 ring-red-500" : "focus:ring-[#0066D6]"
+                  errors.fullName ? "border-red-500 ring-1 ring-red-500" : "focus:ring-[#154f59]"
                 }`}
                 style={{
                   backgroundColor: "var(--surface)",
@@ -241,7 +241,7 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
                   {...register("phone")}
                   placeholder={t.phonePlaceholder}
                   className={`w-full pl-10 pr-4 py-3 rounded-xl border text-sm focus:outline-none focus:ring-2 transition-all ${
-                    errors.phone ? "border-red-500 ring-1 ring-red-500" : "focus:ring-[#0066D6]"
+                    errors.phone ? "border-red-500 ring-1 ring-red-500" : "focus:ring-[#154f59]"
                   }`}
                   style={{
                     backgroundColor: "var(--surface)",
@@ -271,7 +271,7 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
                 type="email"
                 {...register("email")}
                 placeholder="your.name@example.com"
-                className="w-full p-3 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-[#0066D6]"
+                className="w-full p-3 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-[#154f59]"
                 style={{
                   backgroundColor: "var(--surface)",
                   borderColor: "var(--border)",
@@ -292,7 +292,7 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
                 type="text"
                 {...register("couponCode")}
                 placeholder="Enter coupon code if you have one"
-                className="w-full p-3 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-[#0066D6]"
+                className="w-full p-3 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-[#154f59]"
                 style={{
                   backgroundColor: "var(--surface)",
                   borderColor: "var(--border)",
@@ -302,8 +302,8 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
             </div>
 
             {/* Policy Checkbox Notice */}
-            <div className="p-3 rounded-xl bg-[#0066D6]/10 border border-[#0066D6]/20 text-xs space-y-1">
-              <div className="flex items-center gap-1.5 font-bold text-[#0066D6]">
+            <div className="p-3 rounded-xl bg-[#154f59]/10 border border-[#154f59]/20 text-xs space-y-1">
+              <div className="flex items-center gap-1.5 font-bold text-[#154f59]">
                 <ShieldCheck className="w-4 h-4" />
                 <span>Verified WhatsApp Enrolment Process</span>
               </div>

@@ -162,7 +162,7 @@ export default async function InstructorProfilePage({ params }: Props) {
           {/* Back Link */}
           <Link
             href="/instructors"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[#0066D6] hover:underline"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[#154f59] hover:underline"
           >
             ← Back to All Instructors
           </Link>
@@ -175,12 +175,12 @@ export default async function InstructorProfilePage({ params }: Props) {
               borderColor: "var(--border)",
             }}
           >
-            <div className="absolute top-0 right-0 w-96 h-96 bg-[#0066D6]/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-[#154f59]/10 rounded-full blur-3xl pointer-events-none" />
 
             <div className="flex flex-col sm:flex-row items-start gap-8">
 
               {/* Photo */}
-              <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-3xl overflow-hidden border-4 border-[#0066D6]/30 shrink-0">
+              <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-3xl overflow-hidden border-4 border-[#154f59]/30 shrink-0">
                 {teacher.photoUrl ? (
                   <img
                     src={teacher.photoUrl}
@@ -188,7 +188,7 @@ export default async function InstructorProfilePage({ params }: Props) {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full bg-[#0066D6]/20 flex items-center justify-center font-bold text-4xl text-[#0066D6]">
+                  <div className="w-full h-full bg-[#154f59]/20 flex items-center justify-center font-bold text-4xl text-[#154f59]">
                     {teacher.name[0]}
                   </div>
                 )}
@@ -197,7 +197,7 @@ export default async function InstructorProfilePage({ params }: Props) {
               {/* Info */}
               <div className="flex-1 space-y-4">
                 <div className="flex items-center gap-3">
-                  <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-lg bg-[#0066D6]/10 text-[#0066D6] border border-[#0066D6]/20 flex items-center gap-1">
+                  <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-lg bg-[#154f59]/10 text-[#154f59] border border-[#154f59]/20 flex items-center gap-1">
                     <Award className="w-3.5 h-3.5" />
                     Instructor Profile
                   </span>
@@ -210,7 +210,7 @@ export default async function InstructorProfilePage({ params }: Props) {
                   {teacher.name}
                 </h1>
 
-                <p className="text-lg font-semibold text-[#0066D6]">
+                <p className="text-lg font-semibold text-[#154f59]">
                   {teacher.yearsExperience}+ Years Software Industry Experience
                 </p>
 
@@ -231,7 +231,7 @@ export default async function InstructorProfilePage({ params }: Props) {
           <div className="space-y-8">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-[#0066D6] block mb-1">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#154f59] block mb-1">
                   Courses Taught
                 </span>
                 <h2
@@ -243,7 +243,7 @@ export default async function InstructorProfilePage({ params }: Props) {
               </div>
               <Link
                 href="/courses"
-                className="inline-flex items-center gap-2 text-sm font-bold text-[#0066D6] hover:underline shrink-0"
+                className="inline-flex items-center gap-2 text-sm font-bold text-[#154f59] hover:underline shrink-0"
               >
                 <span>View All Courses</span>
                 <ArrowRight className="w-4 h-4" />
@@ -266,7 +266,7 @@ export default async function InstructorProfilePage({ params }: Props) {
                 className="text-center py-16 p-8 rounded-2xl border space-y-4"
                 style={{ backgroundColor: "var(--glass-bg)", borderColor: "var(--border)" }}
               >
-                <BookOpen className="w-12 h-12 mx-auto text-[#0066D6]/30" />
+                <BookOpen className="w-12 h-12 mx-auto text-[#154f59]/30" />
                 <p className="text-lg font-bold" style={{ color: "var(--text-primary)" }}>
                   No active courses found for this instructor.
                 </p>
