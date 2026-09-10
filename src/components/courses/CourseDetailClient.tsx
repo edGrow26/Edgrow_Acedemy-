@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Clock, Calendar, CheckCircle2, AlertCircle, ShieldCheck, ArrowRight, BookOpen } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
@@ -13,6 +14,10 @@ interface Props {
 }
 
 export default function CourseDetailClient({ course, teacher }: Props) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -46,10 +51,10 @@ export default function CourseDetailClient({ course, teacher }: Props) {
               borderColor: "var(--border)",
             }}
           >
-            <div className="absolute top-0 right-0 w-96 h-96 bg-[#0066D6]/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-[#154f59]/10 rounded-full blur-3xl pointer-events-none" />
 
             <div className="flex flex-wrap items-center gap-3 relative z-10">
-              <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-lg bg-[#0066D6]/10 text-[#0066D6] border border-[#0066D6]/20">
+              <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-lg bg-[#154f59]/10 text-[#154f59] border border-[#154f59]/20">
                 {course.topic}
               </span>
               <span className="text-xs font-bold px-3 py-1 rounded-lg bg-[#00BFA5]/10 text-[#00BFA5] border border-[#00BFA5]/20 flex items-center gap-1">
@@ -79,7 +84,7 @@ export default function CourseDetailClient({ course, teacher }: Props) {
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-[#0066D6]/10 text-[#0066D6]">
+                <div className="p-2.5 rounded-xl bg-[#154f59]/10 text-[#154f59]">
                   <Calendar className="w-5 h-5" />
                 </div>
                 <div>
@@ -100,7 +105,7 @@ export default function CourseDetailClient({ course, teacher }: Props) {
                   <span className="text-[10px] uppercase font-bold tracking-wider block" style={{ color: "var(--text-muted)" }}>
                     One-Time Fee
                   </span>
-                  <span className="text-2xl font-extrabold text-[#0066D6]">
+                  <span className="text-2xl font-extrabold text-[#154f59]">
                     Rs. {course.fee.toLocaleString()}
                   </span>
                 </div>
@@ -145,10 +150,10 @@ export default function CourseDetailClient({ course, teacher }: Props) {
                 variants={containerVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: true }}
               >
                 <motion.h2 variants={itemVariants} className="text-2xl font-bold flex items-center gap-2" style={{ color: "var(--text-primary)" }}>
-                  <BookOpen className="w-6 h-6 text-[#0066D6]" />
+                  <BookOpen className="w-6 h-6 text-[#154f59]" />
                   Course Syllabus
                 </motion.h2>
                 <div className="space-y-3">
@@ -156,13 +161,13 @@ export default function CourseDetailClient({ course, teacher }: Props) {
                     <motion.div
                       variants={itemVariants}
                       key={idx}
-                      className="p-4 rounded-xl border flex items-start gap-3 transition-colors hover:border-[#0066D6]/40 glass-card"
+                      className="p-4 rounded-xl border flex items-start gap-3 transition-colors hover:border-[#154f59]/40 glass-card"
                       style={{
                         backgroundColor: "var(--surface)",
                         borderColor: "var(--border)",
                       }}
                     >
-                      <span className="w-6 h-6 rounded-lg bg-[#0066D6]/10 text-[#0066D6] font-extrabold text-xs flex items-center justify-center shrink-0">
+                      <span className="w-6 h-6 rounded-lg bg-[#154f59]/10 text-[#154f59] font-extrabold text-xs flex items-center justify-center shrink-0">
                         {idx + 1}
                       </span>
                       <p className="text-sm font-medium pt-0.5" style={{ color: "var(--text-primary)" }}>
@@ -190,7 +195,7 @@ export default function CourseDetailClient({ course, teacher }: Props) {
                     Instructor Profile
                   </h3>
                   <div className="flex items-start gap-4">
-                    <div className="relative w-16 h-16 rounded-2xl overflow-hidden border-2 border-[#0066D6]/40 shrink-0">
+                    <div className="relative w-16 h-16 rounded-2xl overflow-hidden border-2 border-[#154f59]/40 shrink-0">
                       {teacher.photoUrl ? (
                         <img
                           src={teacher.photoUrl}
@@ -198,7 +203,7 @@ export default function CourseDetailClient({ course, teacher }: Props) {
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <div className="w-full h-full bg-[#0066D6]/20 flex items-center justify-center font-bold text-xl text-[#0066D6]">
+                        <div className="w-full h-full bg-[#154f59]/20 flex items-center justify-center font-bold text-xl text-[#154f59]">
                           {teacher.name[0]}
                         </div>
                       )}
@@ -207,7 +212,7 @@ export default function CourseDetailClient({ course, teacher }: Props) {
                       <h4 className="text-lg font-bold" style={{ color: "var(--text-primary)" }}>
                         {teacher.name}
                       </h4>
-                      <p className="text-xs font-semibold text-[#0066D6]">
+                      <p className="text-xs font-semibold text-[#154f59]">
                         {teacher.yearsExperience}+ Years Software Industry Experience
                       </p>
                       <p className="text-xs leading-relaxed" style={{ color: "var(--text-body)" }}>

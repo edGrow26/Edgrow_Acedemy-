@@ -66,22 +66,25 @@ export default async function InstructorsPage() {
   );
 
   return (
-    <div className="min-h-screen flex flex-col justify-between">
+    <div className="min-h-screen flex flex-col justify-between bg-[#1c2e40]" style={{
+      backgroundImage: `linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`,
+      backgroundSize: '40px 40px'
+    }}>
       <Navbar />
 
-      <main className="flex-1 pt-28 pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <main className="flex-1 pt-32 pb-20 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 relative z-10">
 
           {/* Page Header */}
           <div className="text-center max-w-3xl mx-auto space-y-4">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#0066D6] block flex items-center justify-center gap-2">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#00BFA5] block flex items-center justify-center gap-2">
               <GraduationCap className="w-4 h-4" />
               Our Team
             </span>
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight" style={{ color: "var(--text-primary)" }}>
-              Meet Our <span className="text-gradient-blue">Industry Experts</span>
+            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight text-white">
+              Meet Our <span className="text-gradient-mint">Industry Experts</span>
             </h1>
-            <p className="text-sm sm:text-base max-w-2xl mx-auto leading-relaxed" style={{ color: "var(--text-body)" }}>
+            <p className="text-sm sm:text-base max-w-2xl mx-auto leading-relaxed text-gray-300">
               Learn from senior software engineers, AI researchers, and cloud architects with proven field experience. All classes are conducted live in Tamil via Google Meet.
             </p>
           </div>
@@ -89,24 +92,22 @@ export default async function InstructorsPage() {
           {/* Stats Section */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
             <div
-              className="p-6 rounded-2xl border text-center space-y-2"
-              style={{ backgroundColor: "var(--surface)", borderColor: "var(--border)" }}
+              className="p-6 rounded-2xl border text-center space-y-2 bg-[#0f172a]/50 border-white/10"
             >
-              <div className="text-3xl sm:text-4xl font-extrabold text-[#0066D6]">
+              <div className="text-3xl sm:text-4xl font-extrabold text-[#00BFA5]">
                 <AnimatedCounter value={teachers.length} suffix="+" />
               </div>
-              <p className="text-xs font-semibold" style={{ color: "var(--text-secondary)" }}>
+              <p className="text-xs font-semibold text-gray-400">
                 Expert Instructors
               </p>
             </div>
             <div
-              className="p-6 rounded-2xl border text-center space-y-2"
-              style={{ backgroundColor: "var(--surface)", borderColor: "var(--border)" }}
+              className="p-6 rounded-2xl border text-center space-y-2 bg-[#0f172a]/50 border-white/10"
             >
-              <div className="text-3xl sm:text-4xl font-extrabold text-[#00BFA5]">
+              <div className="text-3xl sm:text-4xl font-extrabold text-[#1DE9B6]">
                 <AnimatedCounter value={totalExperience} suffix="+" />
               </div>
-              <p className="text-xs font-semibold" style={{ color: "var(--text-secondary)" }}>
+              <p className="text-xs font-semibold text-gray-400">
                 Years Combined Experience
               </p>
             </div>

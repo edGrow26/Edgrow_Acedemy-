@@ -21,13 +21,13 @@ export default function CourseCard({ course, teacher, index = 0 }: CourseCardPro
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: index * 0.1 }}
-      className="glass-card rounded-2xl p-6 relative flex flex-col justify-between h-full group"
+      className="rounded-2xl p-6 relative flex flex-col justify-between h-full group bg-[#0f172a]/50 border border-white/10 backdrop-blur-md"
     >
       <div className="space-y-4">
         
         {/* Top Badges */}
         <div className="flex items-center justify-between gap-2">
-          <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg border text-[#0066D6] bg-[#0066D6]/10 border-[#0066D6]/20">
+          <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg border text-teal-400 bg-teal-400/10 border-teal-400/20">
             {course.topic}
           </span>
           <span className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-[#00BFA5]/10 text-[#00BFA5] border border-[#00BFA5]/20 flex items-center gap-1">
@@ -39,29 +39,28 @@ export default function CourseCard({ course, teacher, index = 0 }: CourseCardPro
         {/* Title */}
         <div>
           <h3
-            className="text-lg sm:text-xl font-bold group-hover:text-[#0066D6] transition-colors leading-snug"
-            style={{ color: "var(--text-primary)" }}
+            className="text-lg sm:text-xl font-bold text-white group-hover:text-teal-400 transition-colors leading-snug"
           >
             {course.title}
           </h3>
         </div>
 
         {/* Schedule & Duration Meta */}
-        <div className="space-y-2 text-xs pt-2" style={{ color: "var(--text-secondary)" }}>
+        <div className="space-y-2 text-xs pt-2 text-gray-400">
           <div className="flex items-center gap-2">
             <Clock className="w-4 h-4 text-[#00BFA5] shrink-0" />
-            <span>Duration: <strong>{course.duration}</strong></span>
+            <span>Duration: <strong className="text-gray-300">{course.duration}</strong></span>
           </div>
           <div className="flex items-center gap-2">
-            <Calendar className="w-4 h-4 text-[#0066D6] shrink-0" />
-            <span className="truncate">Schedule: <strong>{course.schedule}</strong></span>
+            <Calendar className="w-4 h-4 text-teal-400 shrink-0" />
+            <span className="truncate">Schedule: <strong className="text-gray-300">{course.schedule}</strong></span>
           </div>
         </div>
 
         {/* Teacher Info */}
         {teacher && (
-          <div className="flex items-center gap-3 pt-3 border-t" style={{ borderColor: "var(--border)" }}>
-            <div className="relative w-9 h-9 rounded-full overflow-hidden border border-[#0066D6]/30 shrink-0">
+          <div className="flex items-center gap-3 pt-3 border-t border-white/10">
+            <div className="relative w-9 h-9 rounded-full overflow-hidden border border-teal-400/30 shrink-0">
               {teacher.photoUrl ? (
                 <img
                   src={teacher.photoUrl}
@@ -69,16 +68,16 @@ export default function CourseCard({ course, teacher, index = 0 }: CourseCardPro
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full bg-[#0066D6]/20 flex items-center justify-center text-xs font-bold text-[#0066D6]">
+                <div className="w-full h-full bg-teal-400/20 flex items-center justify-center text-xs font-bold text-teal-400">
                   {teacher.name[0]}
                 </div>
               )}
             </div>
             <div>
-              <p className="text-xs font-bold truncate" style={{ color: "var(--text-primary)" }}>
+              <p className="text-xs font-bold truncate text-white">
                 {teacher.name}
               </p>
-              <p className="text-[11px]" style={{ color: "var(--text-muted)" }}>
+              <p className="text-[11px] text-gray-500">
                 {teacher.yearsExperience}+ Years Experience
               </p>
             </div>
@@ -88,18 +87,18 @@ export default function CourseCard({ course, teacher, index = 0 }: CourseCardPro
       </div>
 
       {/* Fee & Action CTA */}
-      <div className="pt-6 mt-6 border-t flex items-center justify-between gap-4" style={{ borderColor: "var(--border)" }}>
+      <div className="pt-6 mt-6 border-t border-white/10 flex items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] uppercase font-bold tracking-wider block" style={{ color: "var(--text-muted)" }}>
+          <span className="text-[10px] uppercase font-bold tracking-wider block text-gray-500">
             One-Time Fee
           </span>
           <div>
             {pricing.hasDiscount ? (
               <div className="space-y-1">
-                <div className="text-xs font-semibold text-red-500 line-through">
+                <div className="text-xs font-semibold text-red-400 line-through">
                   Rs. {pricing.baseFee.toLocaleString()}
                 </div>
-                <div className="text-xl sm:text-2xl font-extrabold text-[#0066D6]">
+                <div className="text-xl sm:text-2xl font-extrabold text-teal-400">
                   Rs. {pricing.discountedFee.toLocaleString()}
                 </div>
                 <div className="text-[11px] font-semibold text-[#00BFA5]">
@@ -107,7 +106,7 @@ export default function CourseCard({ course, teacher, index = 0 }: CourseCardPro
                 </div>
               </div>
             ) : (
-              <span className="text-xl sm:text-2xl font-extrabold text-[#0066D6]">
+              <span className="text-xl sm:text-2xl font-extrabold text-teal-400">
                 Rs. {pricing.baseFee.toLocaleString()}
               </span>
             )}

@@ -25,40 +25,26 @@ export default function CourseFilters({ filters, onChange, topics }: CourseFilte
 
   return (
     <div
-      className="p-5 sm:p-6 rounded-2xl border space-y-6 shadow-xl backdrop-blur-md mb-8"
-      style={{
-        backgroundColor: "var(--glass-bg)",
-        borderColor: "var(--border)",
-      }}
+      className="p-5 sm:p-6 rounded-2xl border space-y-6 shadow-xl backdrop-blur-md mb-8 bg-[#0f172a]/50 border-white/10"
     >
       {/* Top Search Bar & Reset */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         
         <div className="relative w-full sm:max-w-md">
-          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: "var(--text-muted)" }} />
+          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
             value={filters.searchQuery}
             onChange={(e) => onChange({ ...filters, searchQuery: e.target.value })}
             placeholder="Search courses by keyword or topic..."
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border text-xs focus:outline-none focus:ring-2 focus:ring-[#0066D6] transition-all"
-            style={{
-              backgroundColor: "var(--surface)",
-              borderColor: "var(--border)",
-              color: "var(--text-primary)",
-            }}
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-white/10 text-xs focus:outline-none focus:ring-2 focus:ring-[#00BFA5] transition-all bg-[#1e293b]/50 text-white placeholder-gray-500"
           />
         </div>
 
         <button
           type="button"
           onClick={handleReset}
-          className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl border transition-colors hover:text-[#0066D6] self-end sm:self-auto"
-          style={{
-            backgroundColor: "var(--surface)",
-            borderColor: "var(--border)",
-            color: "var(--text-secondary)",
-          }}
+          className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl border border-white/10 transition-colors hover:bg-white/5 hover:text-white text-gray-300 self-end sm:self-auto bg-[#1e293b]/50"
         >
           <RotateCcw className="w-3.5 h-3.5 text-[#00BFA5]" />
           Reset Filters
@@ -67,27 +53,22 @@ export default function CourseFilters({ filters, onChange, topics }: CourseFilte
       </div>
 
       {/* Filter Chips Groups */}
-      <div className="space-y-4 pt-2 border-t" style={{ borderColor: "var(--border)" }}>
+      <div className="space-y-4 pt-2 border-t border-white/10">
         
         {/* Topic Filters */}
         <div className="space-y-2">
-          <label className="text-xs font-bold uppercase tracking-wider block" style={{ color: "var(--text-primary)" }}>
+          <label className="text-xs font-bold uppercase tracking-wider block text-white">
             {t.filterTopic}
           </label>
           <div className="flex flex-wrap items-center gap-2">
             <button
               type="button"
               onClick={() => onChange({ ...filters, topic: "" })}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all border ${
                 filters.topic === ""
-                  ? "bg-[#0066D6] text-white shadow-md"
-                  : "hover:bg-[#0066D6]/10 text-slate-300"
+                  ? "bg-[#154f59] border-[#154f59] text-white shadow-md"
+                  : "bg-[#1e293b]/50 border-white/10 text-gray-300 hover:bg-white/5 hover:text-white"
               }`}
-              style={{
-                backgroundColor: filters.topic === "" ? "var(--primary-blue)" : "var(--surface)",
-                color: filters.topic === "" ? "#FFFFFF" : "var(--text-body)",
-                border: "1px solid var(--border)",
-              }}
             >
               {t.allTopics}
             </button>
@@ -96,16 +77,11 @@ export default function CourseFilters({ filters, onChange, topics }: CourseFilte
                 key={tItem}
                 type="button"
                 onClick={() => onChange({ ...filters, topic: tItem })}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all border ${
                   filters.topic === tItem
-                    ? "bg-[#0066D6] text-white shadow-md"
-                    : "hover:bg-[#0066D6]/10"
+                    ? "bg-[#154f59] border-[#154f59] text-white shadow-md"
+                    : "bg-[#1e293b]/50 border-white/10 text-gray-300 hover:bg-white/5 hover:text-white"
                 }`}
-                style={{
-                  backgroundColor: filters.topic === tItem ? "var(--primary-blue)" : "var(--surface)",
-                  color: filters.topic === tItem ? "#FFFFFF" : "var(--text-body)",
-                  border: "1px solid var(--border)",
-                }}
               >
                 {tItem}
               </button>
@@ -118,18 +94,13 @@ export default function CourseFilters({ filters, onChange, topics }: CourseFilte
           
           {/* Fee Range */}
           <div className="space-y-1.5">
-            <label className="text-[11px] font-bold uppercase tracking-wider block" style={{ color: "var(--text-secondary)" }}>
+            <label className="text-[11px] font-bold uppercase tracking-wider block text-gray-400">
               {t.filterFee}
             </label>
             <select
               value={filters.feeBucket}
               onChange={(e) => onChange({ ...filters, feeBucket: e.target.value })}
-              className="w-full px-3 py-2 rounded-xl border text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#0066D6]"
-              style={{
-                backgroundColor: "var(--surface)",
-                borderColor: "var(--border)",
-                color: "var(--text-primary)",
-              }}
+              className="w-full px-3 py-2 rounded-xl border border-white/10 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#00BFA5] bg-[#1e293b]/50 text-white"
             >
               <option value="">All Fee Ranges</option>
               <option value="budget">Budget-Friendly (&lt; Rs. 20,000)</option>
@@ -140,18 +111,13 @@ export default function CourseFilters({ filters, onChange, topics }: CourseFilte
 
           {/* Duration */}
           <div className="space-y-1.5">
-            <label className="text-[11px] font-bold uppercase tracking-wider block" style={{ color: "var(--text-secondary)" }}>
+            <label className="text-[11px] font-bold uppercase tracking-wider block text-gray-400">
               {t.filterDuration}
             </label>
             <select
               value={filters.duration}
               onChange={(e) => onChange({ ...filters, duration: e.target.value })}
-              className="w-full px-3 py-2 rounded-xl border text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#0066D6]"
-              style={{
-                backgroundColor: "var(--surface)",
-                borderColor: "var(--border)",
-                color: "var(--text-primary)",
-              }}
+              className="w-full px-3 py-2 rounded-xl border border-white/10 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#00BFA5] bg-[#1e293b]/50 text-white"
             >
               <option value="">All Durations</option>
               <option value="under-1-month">Under 1 Month</option>
@@ -162,18 +128,13 @@ export default function CourseFilters({ filters, onChange, topics }: CourseFilte
 
           {/* Schedule Slot */}
           <div className="space-y-1.5">
-            <label className="text-[11px] font-bold uppercase tracking-wider block" style={{ color: "var(--text-secondary)" }}>
+            <label className="text-[11px] font-bold uppercase tracking-wider block text-gray-400">
               {t.filterSchedule}
             </label>
             <select
               value={filters.scheduleSlot}
               onChange={(e) => onChange({ ...filters, scheduleSlot: e.target.value })}
-              className="w-full px-3 py-2 rounded-xl border text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#0066D6]"
-              style={{
-                backgroundColor: "var(--surface)",
-                borderColor: "var(--border)",
-                color: "var(--text-primary)",
-              }}
+              className="w-full px-3 py-2 rounded-xl border border-white/10 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#00BFA5] bg-[#1e293b]/50 text-white"
             >
               <option value="">All Time Slots</option>
               <option value="morning">Morning Classes</option>
