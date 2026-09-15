@@ -101,7 +101,7 @@ export default function Footer() {
               href="https://wa.me/94771580346"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white shadow-md transition-transform hover:scale-105"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white shadow-md transition-transform hover:scale-105 whitespace-nowrap"
               style={{ backgroundColor: "#25D366" }}
             >
               <svg
@@ -121,11 +121,23 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs" style={{ color: "var(--text-muted)" }}>
-          <p>© {new Date().getFullYear()} EdGrow Academy Sri Lanka. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <Link href="/courses" className="hover:underline">Courses</Link>
-            <Link href="/#trust" className="hover:underline">Features</Link>
+        <div className="pt-8 pb-4 flex flex-col gap-4 text-xs font-medium">
+          <div className="relative flex flex-col md:flex-row items-center justify-center w-full gap-4 md:gap-0" style={{ color: "var(--text-muted)" }}>
+            <div className="flex items-center gap-3">
+              <Link href="/about" className="hover:text-white transition-colors">About EdGrow</Link>
+              <span className="opacity-50">|</span>
+              <Link href="/terms" className="hover:text-white transition-colors">Terms of Use</Link>
+              <span className="opacity-50">|</span>
+              <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            </div>
+            <div className="md:absolute right-0">
+              Developed by <span className="text-[#f5a623] font-semibold">EdGrow Tech (PVT) LTD</span>
+            </div>
+          </div>
+          <div className="flex justify-center w-full mt-1">
+            <p className="text-[#f5a623] font-semibold text-center">
+              © {new Date().getFullYear()} EdGrow Academy Sri Lanka • Built for Students & Professionals
+            </p>
           </div>
         </div>
 
