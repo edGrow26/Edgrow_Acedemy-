@@ -71,13 +71,9 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
   return (
     <div
       id="apply-form"
-      className="p-6 sm:p-8 rounded-2xl border shadow-2xl relative overflow-hidden backdrop-blur-xl"
-      style={{
-        backgroundColor: "var(--glass-bg)",
-        borderColor: "var(--border)",
-      }}
+      className="p-6 sm:p-8 rounded-2xl border shadow-2xl relative overflow-hidden backdrop-blur-md bg-[#0f172a]/50 border-white/10"
     >
-      <div className="absolute top-0 right-0 w-64 h-64 bg-[#154f59]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-0 w-64 h-64 bg-[#154f59]/20 rounded-full blur-3xl pointer-events-none" />
 
       <AnimatePresence mode="wait">
         {isSubmitted ? (
@@ -93,22 +89,17 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
             </div>
 
             <div className="space-y-2">
-              <h3 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>
+              <h3 className="text-2xl font-bold text-white">
                 Application Submitted Successfully!
               </h3>
-              <p className="text-sm max-w-md mx-auto leading-relaxed" style={{ color: "var(--text-body)" }}>
+              <p className="text-sm max-w-md mx-auto leading-relaxed text-gray-300">
                 {t.successMessage}
               </p>
             </div>
 
             {submittedData && (
               <div
-                className="p-4 rounded-xl text-xs space-y-1.5 max-w-sm mx-auto text-left border"
-                style={{
-                  backgroundColor: "var(--surface)",
-                  borderColor: "var(--border)",
-                  color: "var(--text-secondary)",
-                }}
+                className="p-4 rounded-xl text-xs space-y-1.5 max-w-sm mx-auto text-left border bg-[#1c2e40]/50 border-white/10 text-gray-300"
               >
                 <p><strong>Applicant Name:</strong> {submittedData.fullName}</p>
                 <p><strong>WhatsApp Number:</strong> {submittedData.phone}</p>
@@ -119,7 +110,7 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
             <button
               type="button"
               onClick={() => setIsSubmitted(false)}
-              className="inline-flex items-center gap-2 text-xs font-bold text-[#154f59] hover:underline"
+              className="inline-flex items-center gap-2 text-xs font-bold text-teal-400 hover:underline"
             >
               Submit Another Application
             </button>
@@ -134,36 +125,31 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
             className="space-y-5"
           >
             <div>
-              <h3 className="text-xl sm:text-2xl font-bold" style={{ color: "var(--text-primary)" }}>
+              <h3 className="text-xl sm:text-2xl font-bold text-white">
                 {t.applyFormTitle}
               </h3>
-              <p className="text-xs font-medium mt-1" style={{ color: "var(--text-secondary)" }}>
+              <p className="text-xs font-medium mt-1 text-gray-400">
                 Fill in your details. Our admin team will contact you on WhatsApp to finalize your enrolment.
               </p>
             </div>
 
             {/* Course Select */}
             <div className="space-y-1.5">
-              <label className="text-xs font-bold uppercase tracking-wider block" style={{ color: "var(--text-primary)" }}>
+              <label className="text-xs font-bold uppercase tracking-wider block text-gray-300">
                 Selected Course
               </label>
               {course ? (
                 <div
-                  className="p-3 rounded-xl border text-sm font-semibold flex items-center justify-between"
-                  style={{
-                    backgroundColor: "var(--surface)",
-                    borderColor: "var(--border)",
-                    color: "var(--text-primary)",
-                  }}
+                  className="p-3 rounded-xl border text-sm font-semibold flex items-center justify-between bg-[#1c2e40]/50 border-white/10 text-white"
                 >
                   <span>{course.title}</span>
                   <div className="text-right">
                     {selectedPricing?.hasDiscount ? (
                       <div className="space-y-1 text-right">
-                        <div className="text-[11px] text-red-500 line-through">
+                        <div className="text-[11px] text-red-400 line-through">
                           Rs. {selectedPricing.baseFee.toLocaleString()}
                         </div>
-                        <div className="text-xs text-[#154f59] font-bold">
+                        <div className="text-xs text-teal-300 font-bold">
                           Rs. {selectedPricing.discountedFee.toLocaleString()}
                         </div>
                         <div className="text-[11px] text-[#00BFA5] font-semibold">
@@ -171,7 +157,7 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
                         </div>
                       </div>
                     ) : (
-                      <span className="text-xs text-[#154f59] font-bold">
+                      <span className="text-xs text-teal-300 font-bold">
                         Rs. {course.fee.toLocaleString()}
                       </span>
                     )}
@@ -181,12 +167,7 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
               ) : (
                 <select
                   {...register("courseId")}
-                  className="w-full p-3 rounded-xl border text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#154f59]"
-                  style={{
-                    backgroundColor: "var(--surface)",
-                    borderColor: "var(--border)",
-                    color: "var(--text-primary)",
-                  }}
+                  className="w-full p-3 rounded-xl border text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-teal-400 bg-[#1c2e40]/50 border-white/10 text-white"
                 >
                   {allCourses.map((c) => {
                     const pricing = getCoursePricingInfo(c);
@@ -205,21 +186,16 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
 
             {/* Full Name */}
             <div className="space-y-1.5">
-              <label className="text-xs font-bold uppercase tracking-wider block" style={{ color: "var(--text-primary)" }}>
+              <label className="text-xs font-bold uppercase tracking-wider block text-gray-300">
                 {t.fullNameLabel} <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 {...register("fullName")}
                 placeholder="e.g. Kajan Tharmalingam"
-                className={`w-full p-3 rounded-xl border text-sm focus:outline-none focus:ring-2 transition-all ${
-                  errors.fullName ? "border-red-500 ring-1 ring-red-500" : "focus:ring-[#154f59]"
+                className={`w-full p-3 rounded-xl border text-sm focus:outline-none focus:ring-2 transition-all bg-[#1c2e40]/50 text-white placeholder-gray-500 ${
+                  errors.fullName ? "border-red-500 ring-1 ring-red-500" : "border-white/10 focus:ring-teal-400"
                 }`}
-                style={{
-                  backgroundColor: "var(--surface)",
-                  borderColor: errors.fullName ? "#ef4444" : "var(--border)",
-                  color: "var(--text-primary)",
-                }}
               />
               {errors.fullName && (
                 <p className="text-xs text-red-500 font-semibold flex items-center gap-1">
@@ -231,23 +207,18 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
 
             {/* Phone Number (Mandatory) */}
             <div className="space-y-1.5">
-              <label className="text-xs font-bold uppercase tracking-wider block" style={{ color: "var(--text-primary)" }}>
+              <label className="text-xs font-bold uppercase tracking-wider block text-gray-300">
                 {t.phoneLabel} <span className="text-red-500">*</span>
               </label>
               <div className="relative">
-                <PhoneCall className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#00BFA5]" />
+                <PhoneCall className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-teal-400" />
                 <input
                   type="text"
                   {...register("phone")}
                   placeholder={t.phonePlaceholder}
-                  className={`w-full pl-10 pr-4 py-3 rounded-xl border text-sm focus:outline-none focus:ring-2 transition-all ${
-                    errors.phone ? "border-red-500 ring-1 ring-red-500" : "focus:ring-[#154f59]"
+                  className={`w-full pl-10 pr-4 py-3 rounded-xl border text-sm focus:outline-none focus:ring-2 transition-all bg-[#1c2e40]/50 text-white placeholder-gray-500 ${
+                    errors.phone ? "border-red-500 ring-1 ring-red-500" : "border-white/10 focus:ring-teal-400"
                   }`}
-                  style={{
-                    backgroundColor: "var(--surface)",
-                    borderColor: errors.phone ? "#ef4444" : "var(--border)",
-                    color: "var(--text-primary)",
-                  }}
                 />
               </div>
               {errors.phone ? (
@@ -256,7 +227,7 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
                   {errors.phone.message}
                 </p>
               ) : (
-                <p className="text-[11px]" style={{ color: "var(--text-muted)" }}>
+                <p className="text-[11px] text-gray-400">
                   Valid Sri Lankan phone formats: 0771234567 or +94771234567.
                 </p>
               )}
@@ -264,19 +235,14 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
 
             {/* Email (Optional) */}
             <div className="space-y-1.5">
-              <label className="text-xs font-bold uppercase tracking-wider block" style={{ color: "var(--text-primary)" }}>
+              <label className="text-xs font-bold uppercase tracking-wider block text-gray-300">
                 {t.emailLabel}
               </label>
               <input
                 type="email"
                 {...register("email")}
                 placeholder="your.name@example.com"
-                className="w-full p-3 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-[#154f59]"
-                style={{
-                  backgroundColor: "var(--surface)",
-                  borderColor: "var(--border)",
-                  color: "var(--text-primary)",
-                }}
+                className="w-full p-3 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 bg-[#1c2e40]/50 border-white/10 text-white placeholder-gray-500"
               />
               {errors.email && (
                 <p className="text-xs text-red-500 font-semibold">{errors.email.message}</p>
@@ -285,29 +251,24 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
 
             {/* Coupon Code (Optional) */}
             <div className="space-y-1.5">
-              <label className="text-xs font-bold uppercase tracking-wider block" style={{ color: "var(--text-primary)" }}>
+              <label className="text-xs font-bold uppercase tracking-wider block text-gray-300">
                 Coupon Code
               </label>
               <input
                 type="text"
                 {...register("couponCode")}
                 placeholder="Enter coupon code if you have one"
-                className="w-full p-3 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-[#154f59]"
-                style={{
-                  backgroundColor: "var(--surface)",
-                  borderColor: "var(--border)",
-                  color: "var(--text-primary)",
-                }}
+                className="w-full p-3 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 bg-[#1c2e40]/50 border-white/10 text-white placeholder-gray-500"
               />
             </div>
 
             {/* Policy Checkbox Notice */}
-            <div className="p-3 rounded-xl bg-[#154f59]/10 border border-[#154f59]/20 text-xs space-y-1">
-              <div className="flex items-center gap-1.5 font-bold text-[#154f59]">
+            <div className="p-3 rounded-xl bg-teal-900/20 border border-teal-500/20 text-xs space-y-1">
+              <div className="flex items-center gap-1.5 font-bold text-teal-400">
                 <ShieldCheck className="w-4 h-4" />
                 <span>Verified WhatsApp Enrolment Process</span>
               </div>
-              <p style={{ color: "var(--text-body)" }}>
+              <p className="text-gray-300">
                 Upon submission, our admin team will reach out via WhatsApp to verify your registration and send payment bank details.
               </p>
             </div>
@@ -316,8 +277,7 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3.5 px-4 rounded-xl text-sm font-bold text-white shadow-xl transition-all duration-200 hover:opacity-90 active:scale-98 flex items-center justify-center gap-2"
-              style={{ background: "linear-gradient(135deg, var(--primary-blue), var(--accent-teal))" }}
+              className="w-full py-3.5 px-4 rounded-xl text-sm font-bold text-white shadow-xl transition-all duration-200 hover:opacity-90 active:scale-95 flex items-center justify-center gap-2 bg-[#154f59]"
             >
               {isSubmitting ? (
                 <span>Submitting...</span>

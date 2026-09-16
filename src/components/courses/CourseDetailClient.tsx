@@ -37,75 +37,74 @@ export default function CourseDetailClient({ course, teacher }: Props) {
     <div className="min-h-screen flex flex-col justify-between">
       <Navbar />
 
-      <main className="flex-1 pt-28 pb-20">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 space-y-12">
+      <main className="flex-1 pt-28 pb-20 relative bg-[#1c2e40]" style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`,
+          backgroundSize: '40px 40px'
+      }}>
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 space-y-12 relative z-10">
           
           {/* Top Banner Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="p-8 sm:p-12 rounded-3xl border space-y-6 relative overflow-hidden backdrop-blur-xl"
-            style={{
-              backgroundColor: "var(--glass-bg)",
-              borderColor: "var(--border)",
-            }}
+            className="p-8 sm:p-12 rounded-3xl border border-white/10 space-y-6 relative overflow-hidden backdrop-blur-md bg-[#0f172a]/50 shadow-lg"
           >
-            <div className="absolute top-0 right-0 w-96 h-96 bg-[#154f59]/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-[#154f59]/20 rounded-full blur-3xl pointer-events-none" />
 
             <div className="flex flex-wrap items-center gap-3 relative z-10">
-              <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-lg bg-[#154f59]/10 text-[#154f59] border border-[#154f59]/20">
+              <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-lg bg-[#154f59]/20 text-teal-300 border border-[#154f59]/30">
                 {course.topic}
               </span>
-              <span className="text-xs font-bold px-3 py-1 rounded-lg bg-[#00BFA5]/10 text-[#00BFA5] border border-[#00BFA5]/20 flex items-center gap-1">
+              <span className="text-xs font-bold px-3 py-1 rounded-lg bg-[#00BFA5]/20 text-[#00BFA5] border border-[#00BFA5]/30 flex items-center gap-1">
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 100% Live Classes Only
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight relative z-10" style={{ color: "var(--text-primary)" }}>
+            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight relative z-10 text-white">
               {course.title}
             </h1>
 
             {/* Quick Details Bar */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t relative z-10" style={{ borderColor: "var(--border)" }}>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/10 relative z-10">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-[#00BFA5]/10 text-[#00BFA5]">
+                <div className="p-2.5 rounded-xl bg-[#00BFA5]/20 text-[#00BFA5]">
                   <Clock className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-[10px] uppercase font-bold tracking-wider block" style={{ color: "var(--text-muted)" }}>
+                  <span className="text-[10px] uppercase font-bold tracking-wider block text-gray-400">
                     Duration
                   </span>
-                  <span className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>
+                  <span className="text-sm font-bold text-white">
                     {course.duration}
                   </span>
                 </div>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-[#154f59]/10 text-[#154f59]">
+                <div className="p-2.5 rounded-xl bg-[#154f59]/30 text-teal-400">
                   <Calendar className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-[10px] uppercase font-bold tracking-wider block" style={{ color: "var(--text-muted)" }}>
+                  <span className="text-[10px] uppercase font-bold tracking-wider block text-gray-400">
                     Schedule
                   </span>
-                  <span className="text-sm font-bold truncate block" style={{ color: "var(--text-primary)" }}>
+                  <span className="text-sm font-bold truncate block text-white">
                     {course.schedule}
                   </span>
                 </div>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-[#1DE9B6]/10 text-[#1DE9B6]">
+                <div className="p-2.5 rounded-xl bg-[#1DE9B6]/20 text-[#1DE9B6]">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-[10px] uppercase font-bold tracking-wider block" style={{ color: "var(--text-muted)" }}>
+                  <span className="text-[10px] uppercase font-bold tracking-wider block text-gray-400">
                     One-Time Fee
                   </span>
-                  <span className="text-2xl font-extrabold text-[#154f59]">
+                  <span className="text-2xl font-extrabold text-[#1DE9B6]">
                     Rs. {course.fee.toLocaleString()}
                   </span>
                 </div>
@@ -116,16 +115,15 @@ export default function CourseDetailClient({ course, teacher }: Props) {
             <div className="pt-2 flex flex-col sm:flex-row items-center gap-4 relative z-10">
               <a
                 href="#apply-form"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-bold text-white shadow-xl transition-all hover:opacity-90 active:scale-95"
-                style={{ background: "linear-gradient(135deg, var(--primary-blue), var(--accent-teal))" }}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-bold text-white shadow-xl transition-all hover:opacity-90 active:scale-95 bg-[#154f59]"
               >
                 <span>Apply for this Course</span>
                 <ArrowRight className="w-4 h-4" />
               </a>
 
               {/* Policy Badges */}
-              <div className="flex flex-wrap items-center gap-3 text-xs font-semibold" style={{ color: "var(--text-secondary)" }}>
-                <span className="flex items-center gap-1 text-amber-500 bg-amber-500/10 px-3 py-1.5 rounded-lg border border-amber-500/20">
+              <div className="flex flex-wrap items-center gap-3 text-xs font-semibold text-gray-300">
+                <span className="flex items-center gap-1 text-amber-400 bg-amber-500/10 px-3 py-1.5 rounded-lg border border-amber-500/20">
                   <AlertCircle className="w-3.5 h-3.5" />
                   No Recordings Provided
                 </span>
@@ -152,8 +150,8 @@ export default function CourseDetailClient({ course, teacher }: Props) {
                 whileInView="visible"
                 viewport={{ once: true }}
               >
-                <motion.h2 variants={itemVariants} className="text-2xl font-bold flex items-center gap-2" style={{ color: "var(--text-primary)" }}>
-                  <BookOpen className="w-6 h-6 text-[#154f59]" />
+                <motion.h2 variants={itemVariants} className="text-2xl font-bold flex items-center gap-2 text-white">
+                  <BookOpen className="w-6 h-6 text-teal-400" />
                   Course Syllabus
                 </motion.h2>
                 <div className="space-y-3">
@@ -161,16 +159,12 @@ export default function CourseDetailClient({ course, teacher }: Props) {
                     <motion.div
                       variants={itemVariants}
                       key={idx}
-                      className="p-4 rounded-xl border flex items-start gap-3 transition-colors hover:border-[#154f59]/40 glass-card"
-                      style={{
-                        backgroundColor: "var(--surface)",
-                        borderColor: "var(--border)",
-                      }}
+                      className="p-4 rounded-xl border flex items-start gap-3 transition-colors hover:border-[#154f59]/60 backdrop-blur-md bg-[#0f172a]/50 border-white/10 shadow-sm"
                     >
-                      <span className="w-6 h-6 rounded-lg bg-[#154f59]/10 text-[#154f59] font-extrabold text-xs flex items-center justify-center shrink-0">
+                      <span className="w-6 h-6 rounded-lg bg-[#154f59]/30 text-teal-400 font-extrabold text-xs flex items-center justify-center shrink-0">
                         {idx + 1}
                       </span>
-                      <p className="text-sm font-medium pt-0.5" style={{ color: "var(--text-primary)" }}>
+                      <p className="text-sm font-medium pt-0.5 text-gray-200">
                         {item}
                       </p>
                     </motion.div>
@@ -185,11 +179,7 @@ export default function CourseDetailClient({ course, teacher }: Props) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.2 }}
-                  className="p-6 rounded-2xl border space-y-4"
-                  style={{
-                    backgroundColor: "var(--glass-bg)",
-                    borderColor: "var(--border)",
-                  }}
+                  className="p-6 rounded-2xl border space-y-4 backdrop-blur-md bg-[#0f172a]/50 border-white/10 shadow-lg"
                 >
                   <h3 className="text-xs font-bold uppercase tracking-wider text-[#00BFA5]">
                     Instructor Profile
@@ -203,19 +193,19 @@ export default function CourseDetailClient({ course, teacher }: Props) {
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <div className="w-full h-full bg-[#154f59]/20 flex items-center justify-center font-bold text-xl text-[#154f59]">
+                        <div className="w-full h-full bg-[#154f59]/30 flex items-center justify-center font-bold text-xl text-teal-400">
                           {teacher.name[0]}
                         </div>
                       )}
                     </div>
                     <div className="space-y-1">
-                      <h4 className="text-lg font-bold" style={{ color: "var(--text-primary)" }}>
+                      <h4 className="text-lg font-bold text-white">
                         {teacher.name}
                       </h4>
-                      <p className="text-xs font-semibold text-[#154f59]">
+                      <p className="text-xs font-semibold text-teal-400">
                         {teacher.yearsExperience}+ Years Software Industry Experience
                       </p>
-                      <p className="text-xs leading-relaxed" style={{ color: "var(--text-body)" }}>
+                      <p className="text-xs leading-relaxed text-gray-300">
                         {teacher.bio}
                       </p>
                     </div>
