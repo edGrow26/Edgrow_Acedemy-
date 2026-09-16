@@ -99,12 +99,7 @@ export default function HomePageClient() {
                   
                   <div className="p-4 rounded-2xl bg-white/80 backdrop-blur-md border border-white shadow-sm flex flex-col items-center justify-center text-center gap-3 transition-transform hover:scale-105">
                     <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-sm">
-                      <div className="flex">
-                        <div className="w-3 h-3 bg-blue-500 rounded-sm -mr-1" />
-                        <div className="w-3 h-3 bg-red-500 rounded-sm z-10" />
-                        <div className="w-3 h-3 bg-yellow-500 rounded-sm -ml-1" />
-                        <div className="w-3 h-3 bg-green-500 rounded-sm -ml-1" />
-                      </div>
+                      <img src="/icons/google-meet.svg" alt="Google Meet" className="w-6 h-6 object-contain" />
                     </div>
                     <span className="text-[11px] font-bold text-gray-800 leading-tight">Live Google<br/>Meet Sessions</span>
                   </div>
@@ -118,9 +113,7 @@ export default function HomePageClient() {
 
                   <div className="p-4 rounded-2xl bg-white/80 backdrop-blur-md border border-white shadow-sm flex flex-col items-center justify-center text-center gap-3 transition-transform hover:scale-105">
                     <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-sm">
-                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#25D366" viewBox="0 0 16 16">
-                         <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592"/>
-                       </svg>
+                      <img src="/icons/whatsapp.svg" alt="WhatsApp" className="w-7 h-7 object-contain" />
                     </div>
                     <span className="text-[11px] font-bold text-gray-800 leading-tight">Dedicated<br/>WhatsApp<br/>Support</span>
                   </div>
