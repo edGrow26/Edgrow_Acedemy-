@@ -4,6 +4,20 @@ import { z } from "zod";
 // Matches: 07X XXXXXXX (10 digits) or +94 7X XXXXXXX (12 chars with +94 prefix)
 export const sriLankaPhoneRegex = /^(?:\+94|0)?7[0-9]{8}$/;
 
+export function normalizePhoneNumber(phone: string): string {
+  const compactPhone = phone.replace(/[\s-]/g, "");
+
+  if (compactPhone.startsWith("+94")) {
+    return `0${compactPhone.slice(3)}`;
+  }
+
+  if (compactPhone.startsWith("94")) {
+    return `0${compactPhone.slice(2)}`;
+  }
+
+  return compactPhone;
+}
+
 export const applicationSchema = z.object({
   fullName: z
     .string()
@@ -43,6 +57,7 @@ export const courseSchema = z.object({
   topic: z.string().min(1, "Select or enter a topic"),
   language: z.string().default("Tamil"),
   scheduleSlot: z.enum(["morning", "evening", "weekend"]),
+  classDays: z.string().min(1, "Enter class days"),
   schedule: z.string().min(1, "Enter class schedule details"),
   syllabus: z.array(z.string()).min(1, "Add at least one syllabus item"),
   isActive: z.boolean().default(true),

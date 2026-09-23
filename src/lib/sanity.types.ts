@@ -39,6 +39,7 @@ export interface SanityCourse {
   topic: string;
   language: string;
   scheduleSlot: "morning" | "evening" | "weekend";
+  classDays: string;
   schedule: string;
   syllabus: string[];
   isActive: boolean;

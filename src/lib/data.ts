@@ -41,6 +41,7 @@ export const INITIAL_COURSES: Course[] = [
     topic: "Web Development",
     language: "Tamil",
     scheduleSlot: "weekend",
+    classDays: "Saturday & Sunday",
     schedule: "Saturday & Sunday 7:00 PM - 9:00 PM",
     syllabus: [
       "HTML5, CSS3, Modern JavaScript (ES6+)",
@@ -68,6 +69,7 @@ export const INITIAL_COURSES: Course[] = [
     topic: "Data/AI",
     language: "Tamil",
     scheduleSlot: "evening",
+    classDays: "Monday & Wednesday",
     schedule: "Monday & Wednesday 8:00 PM - 9:30 PM",
     syllabus: [
       "Python Basics, Data Structures & Functions",
@@ -93,6 +95,7 @@ export const INITIAL_COURSES: Course[] = [
     topic: "Networking",
     language: "Tamil",
     scheduleSlot: "weekend",
+    classDays: "Sunday",
     schedule: "Sunday 9:00 AM - 12:00 PM",
     syllabus: [
       "Linux Administration & Bash Scripting",
@@ -118,6 +121,7 @@ export const INITIAL_COURSES: Course[] = [
     topic: "Programming Fundamentals",
     language: "Tamil",
     scheduleSlot: "morning",
+    classDays: "Saturday",
     schedule: "Saturday 8:00 AM - 10:30 AM",
     syllabus: [
       "Computational Thinking & Problem Solving",

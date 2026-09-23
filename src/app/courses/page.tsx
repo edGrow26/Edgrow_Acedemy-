@@ -37,6 +37,7 @@ export default async function CoursesPage() {
         topic: c.topic,
         language: c.language || "Tamil",
         scheduleSlot: c.scheduleSlot,
+        classDays: c.classDays || c.schedule,
         schedule: c.schedule,
         syllabus: c.syllabus || [],
         isActive: c.isActive,

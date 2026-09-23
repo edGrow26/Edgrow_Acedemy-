@@ -146,6 +146,13 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "classDays",
+      title: "Class Days",
+      type: "string",
+      description: "Days when live classes are held, e.g. 'Saturday & Sunday'.",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "syllabus",
       title: "Course Syllabus",
       type: "array",

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@sanity/client";
 import { INITIAL_COURSES } from "@/lib/data";
+import { normalizePhoneNumber, sriLankaPhoneRegex } from "@/lib/validation";
 
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "7epe2pro",
@@ -56,6 +57,29 @@ export async function POST(request: Request) {
       );
     }
 
+    const normalizedPhone = normalizePhoneNumber(phoneNumber);
+    if (!sriLankaPhoneRegex.test(normalizedPhone)) {
+      return NextResponse.json(
+        { error: "Please enter a valid Sri Lankan phone number." },
+        { status: 400 }
+      );
+    }
+
+    const courseApplications = await client.fetch<{ _id: string; phoneNumber: string }[]>(
+      `*[_type == "courseApplication" && selectedCourse == $courseId]{ _id, phoneNumber }`,
+      { courseId: selectedCourseId }
+    );
+    const existingApplication = courseApplications.find(
+      (application) => normalizePhoneNumber(application.phoneNumber) === normalizedPhone
+    );
+
+    if (existingApplication) {
+      return NextResponse.json(
+        { error: "You have already registered for this course with this phone number." },
+        { status: 409 }
+      );
+    }
+
     // Resolve the course title for display in Sanity Studio
     const courseTitle = await resolveCourseTitle(selectedCourseId);
 
@@ -67,7 +91,7 @@ export async function POST(request: Request) {
       selectedCourse: selectedCourseId,
       selectedCourseTitle: courseTitle || selectedCourseId,
       fullName,
-      phoneNumber,
+      phoneNumber: normalizedPhone,
       email: email || "",
       appliedAt: new Date().toISOString(),
       status: "pending",

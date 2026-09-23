@@ -1,5 +1,13 @@
 export type CourseDiscountType = "percent" | "fixed";
 
+export type CourseFeeBucket = "budget" | "mid" | "premium";
+
+export function getCourseFeeBucket(fee: number): CourseFeeBucket {
+  if (fee < 20000) return "budget";
+  if (fee <= 30000) return "mid";
+  return "premium";
+}
+
 export interface CoursePricingInfo {
   baseFee: number;
   discountedFee: number;

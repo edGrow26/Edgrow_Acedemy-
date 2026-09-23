@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, PhoneCall, AlertCircle, ArrowRight, ShieldCheck } from "lucide-react";
-import { applicationSchema, ApplicationFormData } from "@/lib/validation";
+import { applicationSchema, ApplicationFormData, normalizePhoneNumber } from "@/lib/validation";
 import { Course } from "@/lib/types";
 import { getStoredApplications, saveApplications } from "@/lib/data";
 import { dictionary } from "@/lib/i18n";
@@ -27,6 +27,7 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
     watch,
     formState: { errors, isSubmitting },
     reset,
+    setError,
   } = useForm<ApplicationFormData>({
     resolver: zodResolver(applicationSchema),
     defaultValues: {
@@ -46,13 +47,28 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
   const selectedPricing = selectedCourse ? getCoursePricingInfo(selectedCourse) : null;
 
   const onSubmit = async (data: ApplicationFormData) => {
+    const existing = getStoredApplications();
+    const normalizedPhone = normalizePhoneNumber(data.phone);
+    const alreadyApplied = existing.some(
+      (application) =>
+        application.courseId === data.courseId &&
+        normalizePhoneNumber(application.phone) === normalizedPhone
+    );
+
+    if (alreadyApplied) {
+      setError("phone", {
+        type: "duplicate",
+        message: "You have already registered for this course with this phone number.",
+      });
+      return;
+    }
+
     await new Promise((resolve) => setTimeout(resolve, 800));
 
-    const existing = getStoredApplications();
     const newApp = {
       id: `app-${Date.now()}`,
       fullName: data.fullName,
-      phone: data.phone,
+      phone: normalizedPhone,
       email: data.email || "",
       couponCode: data.couponCode || "",
       courseId: data.courseId,

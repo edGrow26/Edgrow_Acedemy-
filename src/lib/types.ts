@@ -28,6 +28,7 @@ export interface Course {
   topic: string; // e.g., "Web Development", "Programming Fundamentals", "Data/AI", "Networking"
   language: string; // Default: "Tamil"
   scheduleSlot: ScheduleSlot;
+  classDays: string;
   schedule: string;
   syllabus: string[];
   isActive: boolean;
