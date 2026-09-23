@@ -68,7 +68,7 @@ export default function CourseDetailClient({ course, teacher }: Props) {
             </h1>
 
             {/* Quick Details Bar */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t relative z-10" style={{ borderColor: "var(--border)" }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 border-t relative z-10" style={{ borderColor: "var(--border)" }}>
               <div className="flex items-center gap-3">
                 <div className="p-2.5 rounded-xl bg-[#00BFA5]/10 text-[#00BFA5]">
                   <Clock className="w-5 h-5" />
@@ -86,6 +86,20 @@ export default function CourseDetailClient({ course, teacher }: Props) {
               <div className="flex items-center gap-3">
                 <div className="p-2.5 rounded-xl bg-[#154f59]/10 text-[#154f59]">
                   <Calendar className="w-5 h-5" />
+                </div>
+                <div>
+                  <span className="text-[10px] uppercase font-bold tracking-wider block" style={{ color: "var(--text-muted)" }}>
+                    Class Days
+                  </span>
+                  <span className="text-sm font-bold truncate block" style={{ color: "var(--text-primary)" }}>
+                    {course.classDays || course.schedule}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-xl bg-[#154f59]/10 text-[#154f59]">
+                  <Clock className="w-5 h-5" />
                 </div>
                 <div>
                   <span className="text-[10px] uppercase font-bold tracking-wider block" style={{ color: "var(--text-muted)" }}>

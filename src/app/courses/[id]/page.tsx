@@ -37,6 +37,7 @@ async function getCourseAndTeacher(id: string): Promise<{ course: Course | null;
         topic: cmsCourse.topic,
         language: cmsCourse.language || "Tamil",
         scheduleSlot: cmsCourse.scheduleSlot,
+        classDays: cmsCourse.classDays || cmsCourse.schedule,
         schedule: cmsCourse.schedule,
         syllabus: cmsCourse.syllabus || [],
         isActive: cmsCourse.isActive,

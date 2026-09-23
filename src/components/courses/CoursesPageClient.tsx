@@ -7,6 +7,7 @@ import CourseCard from "@/components/courses/CourseCard";
 import CourseFilters from "@/components/courses/CourseFilters";
 import { CourseFilterState, Course, Teacher } from "@/lib/types";
 import { getStoredCourses, getStoredTeachers } from "@/lib/data";
+import { getCourseFeeBucket } from "@/lib/coursePricing";
 
 interface CoursesPageClientProps {
   initialCourses?: Course[];
@@ -52,7 +53,7 @@ export default function CoursesPageClient({
       }
 
       if (filters.topic && course.topic !== filters.topic) return false;
-      if (filters.feeBucket && course.feeBucket !== filters.feeBucket) return false;
+      if (filters.feeBucket && getCourseFeeBucket(course.fee) !== filters.feeBucket) return false;
       if (filters.duration && course.durationCategory !== filters.duration) return false;
       if (filters.scheduleSlot && course.scheduleSlot !== filters.scheduleSlot) return false;
 
