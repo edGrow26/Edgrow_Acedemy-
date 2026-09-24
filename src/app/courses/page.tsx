@@ -4,6 +4,7 @@ import { urlForImage } from "@/lib/imageUrl";
 import { courseListQuery, teachersQuery } from "@/lib/queries";
 import { Course, Teacher } from "@/lib/types";
 import { INITIAL_COURSES, INITIAL_TEACHERS } from "@/lib/data";
+import { getCourseClassDays } from "@/lib/coursePricing";
 
 export default async function CoursesPage() {
   let courses: Course[] = [];
@@ -37,7 +38,7 @@ export default async function CoursesPage() {
         topic: c.topic,
         language: c.language || "Tamil",
         scheduleSlot: c.scheduleSlot,
-        classDays: c.classDays || c.schedule,
+        classDays: getCourseClassDays(c.classDays),
         schedule: c.schedule,
         syllabus: c.syllabus || [],
         isActive: c.isActive,

@@ -10,6 +10,7 @@ import { sanityFetch } from "@/lib/sanity";
 import { urlForImage } from "@/lib/imageUrl";
 import { teacherByIdQuery, coursesByTeacherQuery, teachersQuery } from "@/lib/queries";
 import { Course, Teacher } from "@/lib/types";
+import { getCourseClassDays } from "@/lib/coursePricing";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -66,7 +67,7 @@ async function getCoursesByTeacher(teacherId: string): Promise<Course[]> {
         topic: c.topic,
         language: c.language || "Tamil",
         scheduleSlot: c.scheduleSlot,
-        classDays: c.classDays || c.schedule,
+        classDays: getCourseClassDays(c.classDays),
         schedule: c.schedule,
         syllabus: c.syllabus || [],
         isActive: c.isActive,

@@ -2,6 +2,12 @@ export type CourseDiscountType = "percent" | "fixed";
 
 export type CourseFeeBucket = "budget" | "mid" | "premium";
 
+const dayNamePattern = /\b(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b/i;
+
+export function getCourseClassDays(classDays?: string): string {
+  return classDays && dayNamePattern.test(classDays) ? classDays : "Monday";
+}
+
 export function getCourseFeeBucket(fee: number): CourseFeeBucket {
   if (fee < 20000) return "budget";
   if (fee <= 30000) return "mid";
@@ -22,11 +28,17 @@ export function getCoursePricingInfo(course: {
   couponCode?: string;
   discountType?: CourseDiscountType;
   discountValue?: number;
-}): CoursePricingInfo {
+}, enteredCouponCode?: string): CoursePricingInfo {
   const baseFee = Math.max(0, course.fee || 0);
-  const couponCode = course.couponCode?.trim();
+  const configuredCouponCode = course.couponCode?.trim();
+  const couponCode = enteredCouponCode?.trim();
   const discountValue = typeof course.discountValue === "number" ? course.discountValue : 0;
-  const hasDiscount = Boolean(couponCode && discountValue > 0);
+  const hasDiscount = Boolean(
+    couponCode &&
+    configuredCouponCode &&
+    couponCode.toLowerCase() === configuredCouponCode.toLowerCase() &&
+    discountValue > 0
+  );
 
   if (!hasDiscount) {
     return {
@@ -34,7 +46,7 @@ export function getCoursePricingInfo(course: {
       discountedFee: baseFee,
       discountAmount: 0,
       hasDiscount: false,
-      couponCode,
+      couponCode: configuredCouponCode,
       discountLabel: "",
     };
   }
@@ -57,7 +69,7 @@ export function getCoursePricingInfo(course: {
     discountedFee,
     discountAmount,
     hasDiscount: true,
-    couponCode,
+    couponCode: configuredCouponCode,
     discountLabel,
   };
 }

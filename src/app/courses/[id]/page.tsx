@@ -6,7 +6,7 @@ import { sanityFetch } from "@/lib/sanity";
 import { urlForImage } from "@/lib/imageUrl";
 import { courseByIdQuery, courseListQuery } from "@/lib/queries";
 import { Course, Teacher } from "@/lib/types";
-import { getCoursePricingInfo } from "@/lib/coursePricing";
+import { getCourseClassDays, getCoursePricingInfo } from "@/lib/coursePricing";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -37,7 +37,7 @@ async function getCourseAndTeacher(id: string): Promise<{ course: Course | null;
         topic: cmsCourse.topic,
         language: cmsCourse.language || "Tamil",
         scheduleSlot: cmsCourse.scheduleSlot,
-        classDays: cmsCourse.classDays || cmsCourse.schedule,
+        classDays: getCourseClassDays(cmsCourse.classDays),
         schedule: cmsCourse.schedule,
         syllabus: cmsCourse.syllabus || [],
         isActive: cmsCourse.isActive,

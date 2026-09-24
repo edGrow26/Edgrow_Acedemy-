@@ -20,7 +20,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="fixed top-4 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 transition-all duration-300 flex justify-center">
+    <header className="fixed top-4 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 transition-all duration-300 flex flex-col items-center">
       <div
         className={`w-full max-w-6xl flex items-center justify-between px-4 py-2.5 sm:px-6 transition-all duration-300 rounded-2xl shadow-xl backdrop-blur-2xl border`}
         style={{
@@ -101,7 +101,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden border-b px-4 pt-4 pb-6 space-y-4 shadow-2xl backdrop-blur-2xl"
+            className="w-full max-w-6xl md:hidden border-b px-4 pt-4 pb-6 space-y-4 shadow-2xl backdrop-blur-2xl rounded-b-2xl"
             style={{
               backgroundColor: "var(--surface)",
               borderColor: "var(--border)",

@@ -53,6 +53,10 @@ export default function CourseCard({ course, teacher, index = 0 }: CourseCardPro
           </div>
           <div className="flex items-center gap-2">
             <Calendar className="w-4 h-4 text-teal-400 shrink-0" />
+            <span className="truncate">Class Days: <strong className="text-gray-300">{course.classDays || course.schedule}</strong></span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Clock className="w-4 h-4 text-teal-400 shrink-0" />
             <span className="truncate">Schedule: <strong className="text-gray-300">{course.schedule}</strong></span>
           </div>
         </div>

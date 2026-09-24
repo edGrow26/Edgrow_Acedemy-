@@ -39,14 +39,29 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
   });
 
   const currentCourseId = watch("courseId");
+  const enteredCouponCode = watch("couponCode");
   const selectedCourse: Course | undefined = useMemo(() => {
     if (course && course.id === currentCourseId) return course;
     return allCourses.find((item) => item.id === currentCourseId) ?? course ?? allCourses[0];
   }, [course, allCourses, currentCourseId]);
 
-  const selectedPricing = selectedCourse ? getCoursePricingInfo(selectedCourse) : null;
+  const selectedPricing = selectedCourse
+    ? getCoursePricingInfo(selectedCourse, enteredCouponCode)
+    : null;
 
   const onSubmit = async (data: ApplicationFormData) => {
+    const submittedCourse = allCourses.find((item) => item.id === data.courseId) ?? course;
+    if (data.couponCode?.trim() && submittedCourse) {
+      const pricing = getCoursePricingInfo(submittedCourse, data.couponCode);
+      if (!pricing.hasDiscount) {
+        setError("couponCode", {
+          type: "invalid",
+          message: "Please enter a valid coupon code for this course.",
+        });
+        return;
+      }
+    }
+
     const existing = getStoredApplications();
     const normalizedPhone = normalizePhoneNumber(data.phone);
     const alreadyApplied = existing.some(
@@ -274,8 +289,20 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
                 type="text"
                 {...register("couponCode")}
                 placeholder="Enter coupon code if you have one"
+<<<<<<< HEAD
                 className="w-full p-3 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 bg-[#1c2e40]/50 border-white/10 text-white placeholder-gray-500"
+=======
+                className={`w-full p-3 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-[#154f59] ${errors.couponCode ? "border-red-500 ring-1 ring-red-500" : ""}`}
+                style={{
+                  backgroundColor: "var(--surface)",
+                  borderColor: errors.couponCode ? "#ef4444" : "var(--border)",
+                  color: "var(--text-primary)",
+                }}
+>>>>>>> 23e2bc44 (Update course pages and navbar)
               />
+              {errors.couponCode && (
+                <p className="text-xs text-red-500 font-semibold">{errors.couponCode.message}</p>
+              )}
             </div>
 
             {/* Policy Checkbox Notice */}
