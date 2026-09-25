@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import PageLoader from "@/components/layout/PageLoader";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -35,6 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${plusJakartaSans.variable} scroll-smooth`}>
       <body className="min-h-screen antialiased">
+        <PageLoader />
         {children}
       </body>
     </html>

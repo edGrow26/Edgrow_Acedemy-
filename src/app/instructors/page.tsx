@@ -60,10 +60,7 @@ export default async function InstructorsPage() {
     teachers = INITIAL_TEACHERS;
   }
 
-  const totalExperience = teachers.reduce(
-    (sum, t) => sum + t.yearsExperience,
-    0
-  );
+  const experienceDisplay = 3;
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-[#1c2e40]" style={{
@@ -105,10 +102,10 @@ export default async function InstructorsPage() {
               className="p-6 rounded-2xl border text-center space-y-2 bg-[#0f172a]/50 border-white/10"
             >
               <div className="text-3xl sm:text-4xl font-extrabold text-[#1DE9B6]">
-                <AnimatedCounter value={totalExperience} suffix="+" />
+                <AnimatedCounter value={experienceDisplay} suffix="+" />
               </div>
               <p className="text-xs font-semibold text-gray-400">
-                Years Combined Experience
+                Years of Experience
               </p>
             </div>
           </div>
