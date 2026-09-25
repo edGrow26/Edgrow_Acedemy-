@@ -56,17 +56,10 @@ export default function HomePageClient() {
                 initial="hidden"
                 animate="visible"
               >
-                {/* Badge */}
-                <motion.div variants={itemVariants}>
-                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white shadow-sm">
-                    <div className="w-2 h-2 rounded-full bg-[#00BFA5] animate-pulse" />
-                    <span className="text-xs font-bold tracking-wider text-gray-800">LIVE</span>
-                    <span className="text-xs font-bold tracking-wider text-gray-800 border-l pl-2 border-gray-300">COHORT ENROLLING NOW</span>
-                  </div>
-                </motion.div>
+
 
                 {/* Main Headline */}
-                <motion.h1 variants={itemVariants} className="text-4xl sm:text-5xl lg:text-[3.5rem] font-medium tracking-tight leading-[1.1] text-gray-900">
+                <motion.h1 variants={itemVariants} className="text-4xl sm:text-5xl lg:text-[3.5rem] font-medium tracking-tight leading-[1.1] text-gray-900" style={{ fontFamily: 'var(--font-plus-jakarta), sans-serif' }}>
                   Accelerate Your Tech Career with <span className="font-extrabold text-[#111827]">Tamil-Medium Live IT Courses</span>
                 </motion.h1>
 
