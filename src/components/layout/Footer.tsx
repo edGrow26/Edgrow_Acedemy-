@@ -131,7 +131,7 @@ export default function Footer() {
               <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             </div>
             <div className="md:absolute right-0">
-              Developed by <span className="text-[#f5a623] font-semibold">EdGrow Tech (PVT) LTD</span>
+              Developed by <a href="https://edgrowtech.netlify.app" target="_blank" rel="noopener noreferrer" className="text-[#f5a623] font-semibold hover:underline">EdGrow Tech (PVT) LTD</a>
             </div>
           </div>
           <div className="flex justify-center w-full mt-1">

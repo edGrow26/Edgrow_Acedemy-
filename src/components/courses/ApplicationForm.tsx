@@ -119,7 +119,7 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
               >
                 <p><strong>Applicant Name:</strong> {submittedData.fullName}</p>
                 <p><strong>WhatsApp Number:</strong> {submittedData.phone}</p>
-                <p><strong>Status:</strong> Pending WhatsApp Verification</p>
+                <p><strong>Status:</strong> Pending Verification</p>
               </div>
             )}
 
@@ -209,9 +209,8 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
                 type="text"
                 {...register("fullName")}
                 placeholder="e.g. Kajan Tharmalingam"
-                className={`w-full p-3 rounded-xl border text-sm focus:outline-none focus:ring-2 transition-all bg-[#1c2e40]/50 text-white placeholder-gray-500 ${
-                  errors.fullName ? "border-red-500 ring-1 ring-red-500" : "border-white/10 focus:ring-teal-400"
-                }`}
+                className={`w-full p-3 rounded-xl border text-sm focus:outline-none focus:ring-2 transition-all bg-[#1c2e40]/50 text-white placeholder-gray-500 ${errors.fullName ? "border-red-500 ring-1 ring-red-500" : "border-white/10 focus:ring-teal-400"
+                  }`}
               />
               {errors.fullName && (
                 <p className="text-xs text-red-500 font-semibold flex items-center gap-1">
@@ -232,9 +231,8 @@ export default function ApplicationForm({ course, allCourses = [] as Course[] }:
                   type="text"
                   {...register("phone")}
                   placeholder={t.phonePlaceholder}
-                  className={`w-full pl-10 pr-4 py-3 rounded-xl border text-sm focus:outline-none focus:ring-2 transition-all bg-[#1c2e40]/50 text-white placeholder-gray-500 ${
-                    errors.phone ? "border-red-500 ring-1 ring-red-500" : "border-white/10 focus:ring-teal-400"
-                  }`}
+                  className={`w-full pl-10 pr-4 py-3 rounded-xl border text-sm focus:outline-none focus:ring-2 transition-all bg-[#1c2e40]/50 text-white placeholder-gray-500 ${errors.phone ? "border-red-500 ring-1 ring-red-500" : "border-white/10 focus:ring-teal-400"
+                    }`}
                 />
               </div>
               {errors.phone ? (
